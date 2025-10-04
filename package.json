@@ -12,7 +12,7 @@
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@sentry/node": "10.5.0",
-    "@whiskeysockets/baileys": "7.0.0-rc.3",
+    "@whiskeysockets/baileys": "^6.7.20",
     "axios": "^1.12.2",
     "chokidar": "4.0.3",
     "cloudinary": "2.7.0",
