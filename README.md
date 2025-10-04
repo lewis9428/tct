@@ -39,7 +39,7 @@
 <summary><strong>Click to coppy the command </strong></summary>
 
 ```bash
-bash <(curl -Ls https://sty.ink/8neyx)
+bash <(curl -Ls https://gist.github.com/tct9428/969c34f096557ad05679ef1b81a769f9)
 ```
 </details>
 
