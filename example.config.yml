@@ -1,0 +1,740 @@
+# config.yml (exact keys from config.js schema)
+# — All keys present in your schema are retained.
+# — Comments show: purpose, type, Zod min/max (when present) and default value.
+
+# ENVIRONMENT
+# NODE_ENV: Environment mode controlling behavior & logging verbosity.
+# type: enum("development","production") (no logs will be shown)
+# default: development
+NODE_ENV: development
+
+# TIMEZONE: IANA timezone string used by schedulers and logs.
+# default: Africa/Nairobi
+TIMEZONE: Africa/Nairobi
+
+
+# LOGGER SETTINGS
+# LOG_LEVEL: Logging verbosity. Can be a threshold (e.g. "info") or comma-separated whitelist.
+# type: string
+# default: info
+LOG_LEVEL: info
+
+# LOG_DIR: Directory name (relative to project root or absolute) where logs are written.
+# type: string
+# default: Bookielogs
+LOG_DIR: logs
+
+# PROD_LOG_FILENAME / DEV_LOG_FILENAME: filenames for production/dev logs.
+# type: string
+# default: prod.log / dev.log
+PROD_LOG_FILENAME: prod.log
+DEV_LOG_FILENAME: dev.log
+
+# LOG_ROTATION_FREQUENCY: human token used by rotation tool (e.g. "daily","weekly","hourly").
+# type: string
+# default: daily
+LOG_ROTATION_FREQUENCY: daily
+
+# LOG_ROTATION_SIZE: max file size before rotation, human-readable (e.g. "10M").
+# type: string
+# default: 10M
+LOG_ROTATION_SIZE: 2M
+
+# LOG_QUERIES: if true, enables verbose DB / query logging (app must opt-in).
+# type: boolean
+# default: false
+LOG_QUERIES: false
+
+# SENTRY_DSN: optional Sentry DSN (sensitive). Prefer .env.
+# type: string | undefined
+# default: null (unset)
+#SENTRY_DSN: 
+
+# SENTRY_TRACES_SAMPLE_RATE: fraction of traces to send to Sentry.
+# type: number
+# min: 0, max: 1
+# default: 1.0
+SENTRY_TRACES_SAMPLE_RATE: 1.0
+
+# MODULES_DIRECTORY: where runtime modules are loaded from.
+# type: string
+# default: modules
+MODULES_DIRECTORY: modules
+
+
+# MODULE_CONCURRENCY_LIMIT: max concurrent module operations.
+# type: number
+# min: 1
+# default: 5
+MODULE_CONCURRENCY_LIMIT: 5
+
+# ALLOWED_MODULE_EXTENSIONS: permitted module file extensions.
+# type: array<string>
+# default: [".js", ".mjs", ".cjs"]
+ALLOWED_MODULE_EXTENSIONS:
+  - .js
+  - .mjs
+  - .cjs
+
+# MAX_MODULE_FILE_SIZE_WARN_BYTES: warn threshold in bytes for large module files.
+# type: number
+# min: 0
+# default: 1048576 (1 MiB)
+MAX_MODULE_FILE_SIZE_WARN_BYTES: 1048576
+
+# MAX_HANDLERS_WARNING_THRESHOLD: warn if module registers too many handlers.
+# type: number
+# min: 1
+# default: 100
+MAX_HANDLERS_WARNING_THRESHOLD: 100
+
+# MODULE_RELOAD_DEBOUNCE_MS: debounce (ms) for reload events.
+# type: number (ms)
+# min: 0
+# default: 300
+MODULE_RELOAD_DEBOUNCE_MS: 300
+
+# HEALTH_CHECK_INTERVAL_MS: interval (ms) to run health checks.
+# type: number (ms)
+# min: 0
+# default: 60000 (1 minute)
+HEALTH_CHECK_INTERVAL_MS: 60000000
+
+# HIGH_MEMORY_USAGE_WARN_MB / CRITICAL_MEMORY_USAGE_MB:
+# memory thresholds in megabytes for warnings and critical action.
+# type: number (MB), min: 0
+# defaults: 50 (warn), 100 (critical)
+HIGH_MEMORY_USAGE_WARN_MB: 90
+CRITICAL_MEMORY_USAGE_MB: 70
+
+# KILL_ON_HIGH_MEMORY: if true, process exits when critical memory reached.
+# type: boolean
+# default: false
+#if using process managee , may restart it
+KILL_ON_HIGH_MEMORY: false
+
+# MODULE_STATS_INTERVAL_MS: how often to record module stats (ms).
+# type: number (ms), min: 0
+# default: 300000 (5 minutes)
+MODULE_STATS_INTERVAL_MS: 300000000
+
+# BOT_HOOKS_KEY_SYMBOL: symbol-like string used to mark that hooks are attached.
+# type: string
+# default: "@@myBotHooksAttached"
+BOT_HOOKS_KEY_SYMBOL: "@@myBotHooksAttached"
+
+
+# DATABASE SETTINGS
+# DB_PATH: directory for database files (relative to project root).
+# type: string
+# default: data/db
+DB_PATH: data/db
+
+# DB_NAME: database filename (e.g., sqlite file name).
+# type: string
+# default: bot.
+#changinbg this require restart must rename db  file to matchif already uding the db
+DB_NAME: tct.db
+
+# DB_BATCH_SIZE: number of DB operations batched together.
+# type: number
+# min: 1
+# default: 100
+DB_BATCH_SIZE: 20
+
+# DB_FLUSH_INTERVAL: how often (ms) buffered DB writes are flushed to disk.
+# type: number (ms)
+# min: 1000
+# default: 5000
+DB_FLUSH_INTERVAL: 5000
+
+# DB_CACHE_MAX_BYTES: in-memory DB cache cap.
+# type: number (bytes)
+# min: 0
+# default: 524288000 (500 * 1024 * 1024)
+DB_CACHE_MAX_BYTES: 20971520
+# DATABASE_URL: optional full DB URL (e.g., Postgres). Prefer env var for sensitive values.
+# type: string (url) | undefined
+# default: null
+# --- RECTIFICATION ---
+# The value 'null' is not a valid URL. The schema requires a valid URL string if this key is present.
+# By commenting it out, we let the configuration loader treat it as absent (undefined), which passes validation.
+# If you need to use a database URL, provide the full, valid connection string here or via an environment variable.
+# DATABASE_URL: 
+
+
+# LISTENER MANAGER SETTINGS
+# ATTACH_WATCHER_MS: watcher attach polling ms
+# type: number
+# min: 500
+# default: 3000
+ATTACH_WATCHER_MS: 3000
+
+# SOCK_MONITOR_MS: socket monitor polling ms (Baileys socket).
+# type: number
+# min: 500
+# default: 1500
+SOCK_MONITOR_MS: 1500
+
+
+# BAILEYS & BOT SETTINGS
+# BAILEYS_PINO_LEVEL: allowed values: trace, debug, info, warn, error, fatal, silent
+# default: error
+BAILEYS_PINO_LEVEL: error
+
+# CACHE_TTL_MS: TTL for general caches (ms).
+# type: number (ms)
+# min: 0
+# default: 60000
+CACHE_TTL_MS: 6000
+
+# CACHE_MAX_SIZE_BYTES: cache capacity in bytes.
+# type: number
+# min: 0
+# default: 20971520 (20 * 1024 * 1024)
+MEMORY_STORE_MAX_BYTES: 20971520
+# MEMORY_STORE_MAX_BYTES: maximum memory allowed for in-memory store (bytes).
+# type: number
+# min: 0
+# default: 524288000 (500 MB)
+
+# AUTH_STATE_DIR: directory for auth/session files.
+# type: string
+# default: .auth
+AUTH_STATE_DIR: .auth
+
+# SESSION_ID: optional session id string (sensitive).
+# type: string | undefined
+# default: null
+#SESSION_ID: tct_xxx
+
+# ADMIN_TOKEN: optional admin secret (sensitive).
+# type: string | undefined
+# default: null
+#ADMIN_TOKEN: jdjdd567272UT000
+
+# BAILEYS_BROWSER: tuple [name, browser, version] used by Baileys to identify client.
+# type: tuple of 3 strings
+#used when pairing using terminal
+BAILEYS_BROWSER:
+  - Google Chrome
+  - Chrome
+  - "117.0.5938.92"
+
+# AUTH_WAL_MAX_FILE_SIZE_KB: WAL max file size in KB before rewrite.
+# type: number
+# min: 1
+# default: 1024
+AUTH_WAL_MAX_FILE_SIZE_KB: 1024
+
+# AUTH_WAL_MAX_LINES: maximum WAL lines before rewrite.
+# type: number
+# min: 100
+# default: 10000
+AUTH_WAL_MAX_LINES: 10000
+
+# AUTH_WAL_REWRITE_INTERVAL_MS: interval to rewrite WAL (ms).
+# type: number (ms)
+# min: 0
+# default: 300000 (5 minutes)
+AUTH_WAL_REWRITE_INTERVAL_MS: 300000
+
+# RATE_LIMIT: array of buckets: {window (ms), limit}
+# each bucket: window >= 100, limit >= 1
+# default: [{window:1000,limit:5}, {window:60000,limit:20}]
+RATE_LIMIT:
+  - window: 1000
+    limit: 5
+  - window: 60000
+    limit: 20
+
+# OUTGOING_MAX_QUEUE: max queued outgoing messages
+# type: number
+# min: 0
+# default: 2000
+OUTGOING_MAX_QUEUE: 2000
+
+# SEND_RETRY_ATTEMPTS: how many times to retry sends
+# type: number
+# min: 0
+# default: 2
+SEND_RETRY_ATTEMPTS: 2
+
+# SEND_RETRY_BASE_MS: base backoff in ms for send retry (exponential backoff multiplies by attempt).
+# type: number
+# min: 0
+# default: 500
+SEND_RETRY_BASE_MS: 500
+
+# PREVIEW_BLOCKLIST: hostnames to block for link previews
+# type: array<string>
+# default: []
+PREVIEW_BLOCKLIST: []
+
+# PREVIEW_ALLOWLIST: if non-null, only these hostnames allowed for previews (nullable)
+# type: array<string> | null
+# default: null
+PREVIEW_ALLOWLIST: []
+
+# PREVIEW_RETRY_ATTEMPTS: preview fetch retries
+# type: number
+# min: 0
+# default: 2
+PREVIEW_RETRY_ATTEMPTS: 2
+
+# PREVIEW_TIMEOUT_MS: timeout for preview fetch (ms)
+# type: number
+# min: 0
+# default: 3000
+PREVIEW_TIMEOUT_MS: 3000
+
+# PREVIEW_CACHE_TTL_MS: TTL for preview cache (ms)
+# type: number
+# min: 0
+# default: 3600000 (1 hour)
+PREVIEW_CACHE_TTL_MS: 3600000
+
+# GENERATE_HIGH_QUALITY_LINK_PREVIEW: expensive HQ previews
+# type: boolean
+# default: false
+GENERATE_HIGH_QUALITY_LINK_PREVIEW: false
+
+# CONTACT_CACHE_TTL_MS: contact cache TTL (ms)
+# type: number
+# min: 0
+# default: 3600000
+CONTACT_CACHE_TTL_MS: 360000
+
+# CHAT_CACHE_TTL_MS: chat cache TTL (ms)
+# type: number
+# min: 0
+# default: 1800000
+CHAT_CACHE_TTL_MS: 1800000
+
+# DLQ_PATH: path for dead-letter queue storage
+# type: string
+# default: .dlq
+DLQ_PATH: .dlq
+
+# DLQ_MAX_SIZE_BYTES: size cap for DLQ (bytes)
+# type: number
+# min: 0
+# default: 1048576
+DLQ_MAX_SIZE_BYTES: 1048576
+
+# DLQ_MAX_FILES: max rotated DLQ files to retain
+# type: number
+# min: 0
+# default: 5
+DLQ_MAX_FILES: 5
+
+# COMMAND_PREFIX: command trigger prefix (null | string | array<string>)
+# default: null
+COMMAND_PREFIX: null
+
+# SHUTDOWN_DRAIN_MS: time to wait for outgoing queue to drain on shutdown (ms)
+# type: number
+# min: 0
+# default: 5000
+SHUTDOWN_DRAIN_MS: 5000
+
+# PROJECT_ROOT: optional override for project root; default is resolved in code to process.cwd()
+# type: string
+# default: "."
+#PROJECT_ROOT: "."
+
+# ALLOW_GROUP_COMMANDS: permit group commands by default (boolean)
+# default: false
+#leave it commentrd, only allows antiviewonce
+#ALLOW_GROUP_COMMANDS: false
+
+
+# API KEYS (all optional; sensitive values should be provided via environment)
+#FOOTBALL_API_KEY: 
+#CLOUDINARY_CLOUD_NAME: 
+#CLOUDINARY_API_KEY: 
+#CLOUDINARY_API_SECRET: 
+#OMDB_API_KEY: 
+#OPENWEATHER_API_KEY: 
+
+
+# MODULE-SPECIFIC SETTINGS
+
+# ADDITIONS module: handles additions / notifier behavior
+ADDITIONS:
+  # DEFAULT_ENABLED: enable module by default
+  # type: boolean
+  # default: true
+  DEFAULT_ENABLED: true
+
+  # DEBOUNCE_MS: min time (ms) to debounce repeated addition events
+  # type: number
+  # min: 0
+  # default: 3000
+  DEBOUNCE_MS: 3000
+
+  # SEND_IN_GROUP: send addition notifications in groups if true
+  # type: boolean
+  # default: true
+  SEND_IN_GROUP: true
+
+
+# ALIVE_IMAGES: list of URLs used by the "alive" command (must be valid URLs)
+ALIVE_IMAGES:
+  - "https://files.thebookiebasher.win/media/alive.jpg"
+  - "https://files.thebookiebasher.win/media/alive1.jpg"
+  - "https://files.thebookiebasher.win/media/alive2.jpg"
+  - "https://files.thebookiebasher.win/media/alive3.jpg"
+  - "https://files.thebookiebasher.win/media/alive4.jpg"
+  - "https://files.thebookiebasher.win/media/alive5.jpg"
+  - "https://files.thebookiebasher.win/media/alive6.jpg"
+  - "https://files.thebookiebasher.win/media/alive7.jpg"
+  - "https://files.thebookiebasher.win/media/alive8.jpg"
+  - "https://files.thebookiebasher.win/media/alive9.jpg"
+  - "https://files.thebookiebasher.win/media/alive10.jpg"
+  - "https://files.thebookiebasher.win/media/alive11.jpg"
+
+
+# ANTILINK module: detect & handle links
+ANTILINK:
+  # DEFAULT_ENABLED: whether the antilink module is on by default
+  DEFAULT_ENABLED: true
+
+  # SEND_WARNING: send templated warning when link detected
+  SEND_WARNING: true
+
+  # WARNING_MESSAGE: template string; placeholders: {user}, {warnings}
+  # type: string
+  WARNING_MESSAGE: "🔗 {user}, links are not allowed here. Remaining warnings {warnings}"
+
+  # WARNING_TTL_MS: ms after which the warning message will be auto-deleted (0 = never)
+  # type: number
+  # min: 0
+  # default: 5000
+  WARNING_TTL_MS: 600000
+
+  # WHITE_LIST: array of JIDs or host fragments exempted from checks
+  WHITE_LIST: []
+
+  # BATCH_SIZE: number of messages to process per deletion batch
+  # type: number
+  # min: 1
+  # default: 10
+  BATCH_SIZE: 10
+
+  # BATCH_DELAY_MS: delay between batches in ms
+  # type: number
+  # min: 0
+  # default: 800
+  BATCH_DELAY_MS: 800
+
+  # GLOBAL_CONCURRENCY: number of chats processed concurrently
+  # type: number
+  # min: 1
+  # default: 2
+  GLOBAL_CONCURRENCY: 3
+
+  # DELETE_RETRY_COUNT: how many times to retry deleting a message
+  # type: number
+  # min: 0
+  # default: 3
+  DELETE_RETRY_COUNT: 3
+
+  # DELETE_RETRY_INITIAL_BACKOFF_MS: initial backoff (ms) before retrying deletes
+  # type: number
+  # min: 0
+  # default: 400
+  DELETE_RETRY_INITIAL_BACKOFF_MS: 400
+
+  # PER_CHAT_QUEUE_LIMIT: queue capacity per chat for deletion requests
+  # type: number
+  # min: 1
+  # default: 1000
+  PER_CHAT_QUEUE_LIMIT: 1000
+
+  # DEDUPE_TTL_MS: ms to keep dedupe keys for messages (prevent duplicate handling)
+  # type: number
+  # min: 0
+  # default: 5000
+  DEDUPE_TTL_MS: 50000
+
+  # MAX_WARNINGS: warnings allowed before action (min 1)
+  # type: number
+  # min: 1
+  # default: 3
+  MAX_WARNINGS: 3
+
+  # WARN_RESET_MS: ms after which user warning count resets; 0 = never reset
+  # type: number
+  # min: 0
+  # default: 0
+  WARN_RESET_MS: 0
+
+  # REMOVE_ON_MAX: remove user when MAX_WARNINGS reached if true
+  REMOVE_ON_MAX: true
+
+  # EXPRESSIONS: messages used (round-robin) after removing a user.
+  # Must not be empty (filled from your request).
+  # type: array<string>
+  EXPRESSIONS:
+    - "🚨 {user} has been removed for repeatedly sharing links. Keep our chat clean!"
+    - "👋 Goodbye, {user}! This chat is not for promotional links."
+    - "🚫 Rules are important. {user} has been automatically removed for {count} link violations."
+
+  # VALIDATION_TIMEOUT_MS: ms timeout for link validation operations
+  # type: number
+  # min: 100
+  # default: 4000
+  VALIDATION_TIMEOUT_MS: 40000
+
+  # LOG_DELETED_LINKS: whether to persist a log of deleted linkssends to same target jid as antidelete.js
+  LOG_DELETED_LINKS: true
+
+
+# VIEW-ONCE flags
+# VIEWONCE_SKIP_IF_TARGET_EQUALS_SOURCE: skip re-sending view-once when target==source
+# default: true
+VIEWONCE_SKIP_IF_TARGET_EQUALS_SOURCE: true
+
+# VIEWONCE_ALLOW_GROUP_COMMANDS_DEFAULT: default allow group commands flag for viewonce
+# default: false
+VIEWONCE_ALLOW_GROUP_COMMANDS_DEFAULT: false
+
+
+# AUTOREACT_STATUS module
+AUTOREACT_STATUS:
+  # MIN_INTERVAL_MS: min ms between automatic reactions
+  # type: number
+  # min: 0
+  # default: 5000
+  MIN_INTERVAL_MS: 5000
+
+  # IGNORE_BOT_USER: do not react to messages sent by the bot itself
+  IGNORE_BOT_USER: false
+
+  # REACTIONS: either array<string> or a single string; default is array shown
+  REACTIONS:
+    - "🚀"
+    - "🌎"
+    - "♻️"
+
+
+# AUTO-VIEW & AUTOREAD flags
+AUTOVIEWSTATUS: false
+AUTOREAD_MESSAGES: false
+
+
+# DELETE RECOVERY MODULE
+# DELETE_MEDIA_DIRNAME: folder name where recovered media is stored
+DELETE_MEDIA_DIRNAME: media
+
+# DELETE_DEBOUNCE_MS: ms debounce for delete recovery batching
+# min: 0
+# default: 3000
+DELETE_DEBOUNCE_MS: 3000
+
+# DELETE_CONCURRENCY: concurrent workers for delete processing
+# min: 1
+# default: 3
+DELETE_CONCURRENCY: 3
+
+# DEFAULT_SEND_DELETE: whether to send recovered messages by default
+DEFAULT_SEND_DELETE: true
+
+# DELETE_CLEANUP_DAYS: days before cleaning up recovered delete artifacts
+# min: 1
+# default: 3
+DELETE_CLEANUP_DAYS: 3
+
+# DELETE_CLEANUP_INTERVAL_MS: interval (ms) for cleanup jobs
+# min: 0
+# default: 21600000 (6 hours)
+DELETE_CLEANUP_INTERVAL_MS: 21600000
+
+# DELETE_MEDIA_SEND_DELAY_MS: ms delay between sending recovered media (throttling)
+# min: 0
+# default: 300
+DELETE_MEDIA_SEND_DELAY_MS: 300
+
+# DELETE_MAX_SEND_RETRIES: retries for sending recovered content
+# min: 0
+# default: 3
+DELETE_MAX_SEND_RETRIES: 3
+
+# DELETE_INITIAL_BACKOFF_MS: initial backoff (ms) for send retries
+# min: 0
+# default: 500
+DELETE_INITIAL_BACKOFF_MS: 500
+
+
+# FILTER MODULE
+FILTERS:
+  # TYPING_SIM_MS: simulate typing before responding (ms)
+  # type: number
+  # min: 0, max: 15000
+  # default: 0
+  TYPING_SIM_MS: 1000
+
+  # RESPONSE_MODE: 'roundrobin' or 'random'
+  # allowed: roundrobin | random
+  # default: roundrobin
+  RESPONSE_MODE: roundrobin
+
+
+# LOCKS MODULE (word/phrase blocking)
+LOCKS:
+  # DEFAULT_ENABLED: enable locks by default
+  DEFAULT_ENABLED: true
+
+  # SEND_WARNING: send a warning when blocked word used
+  SEND_WARNING: true
+
+  # WARNING_MESSAGE: templated warning content; placeholder {user}
+  WARNING_MESSAGE: "⚠️ {user}, that word is not allowed."
+
+  # WARNING_TTL_MS: ms to auto-delete warning message (min 0)
+  WARNING_TTL_MS: 5000
+
+  # PER_CHAT_QUEUE_LIMIT: queue limit per-chat
+  # min: 1
+  PER_CHAT_QUEUE_LIMIT: 500
+
+  # BATCH_SIZE: how many checks/actions per batch
+  # min: 1
+  BATCH_SIZE: 5
+
+  # BATCH_DELAY_MS: ms between batches
+  BATCH_DELAY_MS: 500
+
+  # GLOBAL_CONCURRENCY: concurrent chats processed
+  # min: 1
+  GLOBAL_CONCURRENCY: 3
+
+  # NORMALIZE_REMOVE_DIACRITICS: remove diacritics for normalization when matching locks
+  NORMALIZE_REMOVE_DIACRITICS: false
+
+
+# MOVIE MODULE: newsletter / movie images
+MOVIE:
+  NEWSLETTER_IMAGES:
+    - "https://files.thebookiebasher.win/media/tct2.jpg"
+    - "https://files.thebookiebasher.win/media/tct5.jpg"
+    - "https://files.thebookiebasher.win/media/movie.jpg"
+
+
+# SCHEDULER
+# SCHED_CHECK_INTERVAL_MS: scheduling poll interval (ms)
+# min: 1000
+# default: 60000
+SCHED_CHECK_INTERVAL_MS: 60000
+
+# SCHED_DEFAULT_TIMEZONE: timezone for scheduler (string)
+SCHED_DEFAULT_TIMEZONE: Africa/Nairobi
+
+# SCHED_SEND_RETRIES: retry attempts for scheduled message sends
+# min: 0
+# default: 3
+SCHED_SEND_RETRIES: 3
+
+# SCHED_INITIAL_BACKOFF_MS: initial backoff for retries (ms)
+# min: 100
+# default: 500
+SCHED_INITIAL_BACKOFF_MS: 500
+
+
+# STATUS BROADCAST LOCK
+STATUS_BROADCAST_DEFAULT_ENABLED: true
+
+# STATUS_BROADCAST_DEFAULT_WARN: default templated warn message used for status broadcasts.
+# Use YAML block scalar for readability; placeholders: {user}, {max_warns}, {remaining_warns}, {reason}
+STATUS_BROADCAST_DEFAULT_WARN: |
+  *⚠️WARN MESSAGE⚠️*
+  *USER:* {user}
+  *MAX WARNINGS:* {max_warns}
+  *REMAINING WARNINGS:* {remaining_warns}
+  *REASON:* {reason}
+
+STATUS_BROADCAST_DEFAULT_MAX_WARN: 3
+STATUS_BROADCAST_DEFAULT_REASON: "Posting status broadcasts."
+
+STATUS_BROADCAST:
+  # DEDUPE_TTL_MS: ms to keep dedupe keys for status broadcast deduplication
+  # min: 1000
+  # default: 30000
+  DEDUPE_TTL_MS: 30000
+
+
+# STATUS RECOVERY
+# Directory where status media is stored
+STATUS_RECOVERY_DIR: data/status
+
+# STATUS_RECOVERY_CLEANUP_INTERVAL_MS: cleanup job interval (ms)
+# min: 60000
+# default: 86400000 (24 hours)
+STATUS_RECOVERY_CLEANUP_INTERVAL_MS: 86400000
+
+# STATUS_RECOVERY_KEEP_SECONDS: how many seconds to keep recovered statuses
+# min: 3600
+# default: 86400 (24 hours)
+STATUS_RECOVERY_KEEP_SECONDS: 86400
+
+# STATUS_RECOVERY_RESPONDED_LIMIT: numeric guard for responded set size
+# min: 100
+# default: 5000
+STATUS_RECOVERY_RESPONDED_LIMIT: 5000
+
+# STATUS_RECOVERY_RESPONDED_TRIM_KEEP: min keep when trimming responded list
+# min: 100
+# default: 3000
+STATUS_RECOVERY_RESPONDED_TRIM_KEEP: 3000
+
+# STATUS_RECOVERY_MAX_DOWNLOAD_BYTES_WARN: warn threshold for downloads (bytes)
+# min: 1024
+# default: 10485760 (10 MB)
+STATUS_RECOVERY_MAX_DOWNLOAD_BYTES_WARN: 10485760
+
+
+# STATUS AUTOSEND
+STATUS_AUTOSEND_RESPONDED_LIMIT: 5000
+STATUS_AUTOSEND_RESPONDED_TRIM_KEEP: 3000
+STATUS_AUTOSEND_MAX_DOWNLOAD_BYTES_WARN: 10485760
+
+
+# WARN SYSTEM
+WARN_SYSTEM:
+  # MAX_WARNS: action threshold (min 1)
+  MAX_WARNS: 3
+
+  # WARN_MESSAGE: multi-line templated warn message; placeholders: {user}, {max_warns}, {remaining_warns}, {reason}
+  WARN_MESSAGE: |
+    *⚠️WARN MESSAGE⚠️*
+    *USER:* {user}
+    *MAX WARNINGS:* {max_warns}
+    *REMAINING WARNINGS:* {remaining_warns}
+    *REASON:* {reason}
+
+  # DEFAULT_REASON: default text used when no reason is specified
+  DEFAULT_REASON: "Breaking group rules."
+
+  # SHOW_TRIGGER_IN_REASON: include the trigger (word/file) in reason if true
+  SHOW_TRIGGER_IN_REASON: true
+
+
+# WELCOME MODULE
+WELCOME:
+  # DEFAULT_ENABLED: whether welcome messages are enabled by default
+  DEFAULT_ENABLED: true
+
+  # GROUP_SIZE_CACHE_TTL_MS: TTL (ms) for cached group size
+  # min: 0
+  # default: 300000 (5 minutes)
+  GROUP_SIZE_CACHE_TTL_MS: 300000
+
+  # WHATSAPP_GROUP_MAX: maximum group size used for validation (min 1)
+  #used by welcome module to list outoff
+  WHATSAPP_GROUP_MAX: 1024
+
+  # DEBOUNCE_MS: ms debounce for welcome events
+  # min: 0
+  # default: 2000
+  DEBOUNCE_MS: 2000

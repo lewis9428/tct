@@ -1,0 +1,10 @@
+services:
+  wp:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./config.json:/usr/src/app/config.json
+      - ./config.yml:/usr/src/app/config.yml
+      - ./.env:/usr/src/app/.env
+    restart: unless-stopped
