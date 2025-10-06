@@ -330,7 +330,6 @@ DLQ_MAX_FILES: 5
 
 # COMMAND_PREFIX: command trigger prefix (null | string | array<string>)
 # default: null
-COMMAND_PREFIX: null
 
 # SHUTDOWN_DRAIN_MS: time to wait for outgoing queue to drain on shutdown (ms)
 # type: number
