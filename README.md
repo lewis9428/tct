@@ -2324,7 +2324,6 @@ termux
 ---
 
 ## Quick Summary
-This scheduler module provides admin-only commands to configure daily `mute` and `unmute` cycles for groups..
 
 
 ---
@@ -2351,62 +2350,6 @@ Enable or disable a schedule by index.
 
 ---
 
-## Database schema
-The module creates and uses the `group_mute_schedules` table:
-
-```sql
-CREATE TABLE IF NOT EXISTS group_mute_schedules (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  chat_jid TEXT NOT NULL UNIQUE,
-  mute_time TEXT NOT NULL,
-  unmute_time TEXT NOT NULL,
-  enabled INTEGER DEFAULT 1,
-  last_action TEXT,
-  last_action_timestamp INTEGER DEFAULT 0,
-  creator_jid TEXT NOT NULL,
-  created_at INTEGER DEFAULT (strftime('%s','now'))
-);
-```
-
-Notes:
-- `chat_jid` is unique â€” scheduling the same group updates the existing entry.
-- `last_action` + `last_action_timestamp` prevent duplicate repeated actions within the same day.
-
----
-
-## How scheduling works (brief)
-- Scheduler aligns to the start of the next minute and runs every 60 seconds.
-- At each tick the module:
-  1. Loads active schedules from DB.
-  2. Compares each schedule's `mute_time` / `unmute_time` to the current time in the configured timezone.
-  3. Executes `groupSettingUpdate(chat_jid, 'announcement')` for mute, and `groupSettingUpdate(chat_jid, 'not_announcement')` for unmute.
-  4. Updates `last_action` and `last_action_timestamp` after successful change.
-- A schedule will re-run its action the next calendar day even if the last action had the same type but occurred on a previous day.
-
----
-
-## Permissions & Bot requirements
-- Bot must be admin in the target group to change group settings.
-- The module checks `botRef.sock` and logs a warning if it cannot act â€” ensure the socket is connected and the bot has permissions.
-- Commands are admin-only (checked via `isadmin(botRef, ctx)`).
-
----
-
-## Installation & Lifecycle
-- Exported members:
-  - `initialize(bot)` â€” call on bot startup; sets `botRef`, ensures DB schema, and starts the scheduler.
-  - `onMessage(ctx)` â€” handles incoming command messages.
-  - `cleanup()` â€” stops scheduler and clears `botRef`.
-- Add this module to your bot loader and ensure it is initialized with the bot instance.
-
----
-
-## Troubleshooting & tips
-- **Scheduler not firing**: confirm `TIMEZONE` in `config.`, ensure the process clock matches expected timezone, and verify the scheduler aligned message appears in logs.
-- **Actions not applied**: check that the bot account is an admin of the target group. Look for warning logs `Bot may not be admin`.
-- **Timezone mismatches**: Times are interpreted using Luxon and the configured timezone. Use IANA timezone names (e.g., `Europe/London`, `America/Los_Angeles`).
-
----
 
 ## Example usage flows
 1. Add default groups via your connection/defaults utility for the admin user.
