@@ -370,12 +370,6 @@ listquote
 
 ***
 
-### How to Use the Antilink Module
-> This module automatically detects and deletes messages containing links sent by non-admin members in groups. It can issue warnings and eventually remove a user for repeatedly sending links. Group admins, sudo users, and whitelisted users/domains are immune.
-
-> > The module features one command to control its logging behavior.
-
-**Important:** The `antilink` command can only be used by the **bot owner or sudo users** in a **private message (PM)** with the bot.
 
 </details>
 <details>
