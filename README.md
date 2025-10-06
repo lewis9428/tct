@@ -36,7 +36,7 @@
   <img src="https://files.thebookiebasher.win/media/tctlogo2.png" alt="Get Session ID" width="32" height="32" style="border-radius:6px;">
 </a>
 
-### 2. Deploy on  vps
+### 2. Deploy on  VPS
 
 <details>
 <summary><strong>Click to coppy the command </strong></summary>
