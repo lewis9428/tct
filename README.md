@@ -10,6 +10,7 @@
 
 ---
 ## Why Use TCT?
+----------------
 
   - 🔑 **Easy Pairing** - Streamlined session generation and management.
 
