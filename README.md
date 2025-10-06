@@ -9,7 +9,7 @@
 > TCT is a powerful, multi-device WhatsApp bot manager engineered for both personal and group administration. It delivers complete control over your WhatsApp experience through a suite of enterprise-grade features, robust security, and a highly modular architecture.
 
 ---
-## Why Use TCT?
+## Why Use TCT? 
 ----------------
 
   - 🔑 **Easy Pairing** - Streamlined session generation and management.
@@ -94,7 +94,7 @@ pm2 stop {bot name}
 ```
 
 
-## Need help! Join our support group
+## Need help! Join our support Group
 
 [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/TheCarlTech)
 
