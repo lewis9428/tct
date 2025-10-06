@@ -26,6 +26,8 @@
 
 ## 🏃‍♂️ Quick Start  on VPS
 
+---
+
 ### 1.  First, you need to get a session id  or scan on terminal later
 
 👇 click here 
