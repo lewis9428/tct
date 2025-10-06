@@ -9,8 +9,7 @@
 > TCT is a powerful, multi-device WhatsApp bot manager engineered for both personal and group administration. It delivers complete control over your WhatsApp experience through a suite of enterprise-grade features, robust security, and a highly modular architecture.
 
 ---
-## Why Use TCT? 
-----------------
+## Why Use TCT?
 
   - 🔑 **Easy Pairing** - Streamlined session generation and management.
 
@@ -26,8 +25,6 @@
 
 ## 🏃‍♂️ Quick Start  on VPS
 
----
-
 ### 1.  First, you need to get a session id  or scan on terminal later
 
 👇 click here 
@@ -36,7 +33,7 @@
   <img src="https://files.thebookiebasher.win/media/tctlogo2.png" alt="Get Session ID" width="32" height="32" style="border-radius:6px;">
 </a>
 
-### 2. Deploy on  VPS
+### 2. Deploy on  vps
 
 <details>
 <summary><strong>Click to coppy the command </strong></summary>
@@ -94,7 +91,7 @@ pm2 stop {bot name}
 ```
 
 
-## Need help! Join our support Group
+## Need help! Join our support group
 
 [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/TheCarlTech)
 
@@ -2316,6 +2313,124 @@ termux
 ```
 </details>
 
+
+<details>
+<summary>group mute</summary>
+
+# Auto Group Settings â€” Scheduler-Only (muteScheduler)
+ 
+**Purpose:** daily mute/unmute cycles for WhatsApp groups driven by timezone-aware scheduling.
+
+---
+
+## Quick Summary
+This scheduler module provides admin-only commands to configure daily `mute` and `unmute` cycles for groups..
+
+
+---
+
+## Commands (run in default/master group by an admin)
+All commands require the sender to be recognized as an admin.
+
+### `mutesched <HH:mm>|<HH:mm> [optional_group_jid]`
+Schedule a daily mute/unmute cycle.
+
+- Example (default groups): `mutesched 22:00|06:00`
+- Example (specific group): `mutesched 20:00|07:30 1203xxxxxx@g.us`
+
+Times must be `HH:mm` and separated by `|` (mute_time|unmute_time).
+
+### `listmutes`
+Show all configured schedules (ordered by group JID). Output includes the configured times and enabled/disabled status.
+
+### `delmute <number|all>`
+Delete a schedule by index (as shown in `listmutes`) or delete all schedules with `delmute all`.
+
+### `togglemute <enable|disable> <number>`
+Enable or disable a schedule by index.
+
+---
+
+## Database schema
+The module creates and uses the `group_mute_schedules` table:
+
+```sql
+CREATE TABLE IF NOT EXISTS group_mute_schedules (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  chat_jid TEXT NOT NULL UNIQUE,
+  mute_time TEXT NOT NULL,
+  unmute_time TEXT NOT NULL,
+  enabled INTEGER DEFAULT 1,
+  last_action TEXT,
+  last_action_timestamp INTEGER DEFAULT 0,
+  creator_jid TEXT NOT NULL,
+  created_at INTEGER DEFAULT (strftime('%s','now'))
+);
+```
+
+Notes:
+- `chat_jid` is unique â€” scheduling the same group updates the existing entry.
+- `last_action` + `last_action_timestamp` prevent duplicate repeated actions within the same day.
+
+---
+
+## How scheduling works (brief)
+- Scheduler aligns to the start of the next minute and runs every 60 seconds.
+- At each tick the module:
+  1. Loads active schedules from DB.
+  2. Compares each schedule's `mute_time` / `unmute_time` to the current time in the configured timezone.
+  3. Executes `groupSettingUpdate(chat_jid, 'announcement')` for mute, and `groupSettingUpdate(chat_jid, 'not_announcement')` for unmute.
+  4. Updates `last_action` and `last_action_timestamp` after successful change.
+- A schedule will re-run its action the next calendar day even if the last action had the same type but occurred on a previous day.
+
+---
+
+## Permissions & Bot requirements
+- Bot must be admin in the target group to change group settings.
+- The module checks `botRef.sock` and logs a warning if it cannot act â€” ensure the socket is connected and the bot has permissions.
+- Commands are admin-only (checked via `isadmin(botRef, ctx)`).
+
+---
+
+## Installation & Lifecycle
+- Exported members:
+  - `initialize(bot)` â€” call on bot startup; sets `botRef`, ensures DB schema, and starts the scheduler.
+  - `onMessage(ctx)` â€” handles incoming command messages.
+  - `cleanup()` â€” stops scheduler and clears `botRef`.
+- Add this module to your bot loader and ensure it is initialized with the bot instance.
+
+---
+
+## Troubleshooting & tips
+- **Scheduler not firing**: confirm `TIMEZONE` in `config.`, ensure the process clock matches expected timezone, and verify the scheduler aligned message appears in logs.
+- **Actions not applied**: check that the bot account is an admin of the target group. Look for warning logs `Bot may not be admin`.
+- **Timezone mismatches**: Times are interpreted using Luxon and the configured timezone. Use IANA timezone names (e.g., `Europe/London`, `America/Los_Angeles`).
+
+---
+
+## Example usage flows
+1. Add default groups via your connection/defaults utility for the admin user.
+2. In the master group, run:
+   ```
+   mutesched 23:00|07:00
+   ```
+   This schedules all default groups to be muted at 23:00 local time and unmuted at 07:00.
+3. Check:
+   ```
+   listmutes
+   ```
+4. Temporarily pause:
+   ```
+   togglemute disable 1
+   ```
+5. Remove:
+   ```
+   delmute 1
+   ```
+
+---
+
+</details>
 
 <details>
   <summary>New features</summary>
