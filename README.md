@@ -1787,17 +1787,16 @@ This command controls the spam detection feature. It can be used by group admins
 
 * **Actions**: `on`, `off`, `show`.
 
-* **Usage (Group Admin)**: `spam <on|off|show>`
+* **Usage (Group Admin)**: `antispam <on|off|show>`
     * Applies the setting to your default connected group(s).
-    * **Example**: `spam on`
+    * **Example**: `antispam on`
 
 * **Usage (Sudo PM)**: `spam <on|off|show> <group_alias|jid>`
     * Applies the setting to a specific group.
-    * **Example**: `spam off my_group`
+    * **Example**: `antispam off my_group`
 
-* **Usage (Sudo PM - Global)**: `spam <on|off> global`
-    * Sets the default spam detection behavior for all groups.
-    * **Example**: `spam on global`
+* **Usage (Sudo PM - Global)**: `antispam <on|off> global`
+    
 
 ---
 
