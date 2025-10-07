@@ -737,3 +737,13 @@ WELCOME:
   # min: 0
   # default: 2000
   DEBOUNCE_MS: 2000
+
+SPAM:
+  SPAM_THRESHOLD: 7
+  SPAM_WINDOW_MS: 5000
+  SPAM_COOLDOWN_MS: 6000
+  MAX_WARNINGS: 2
+  WARN_EXPIRY_MS: 604800000   # 7 days in ms
+  KICK_ON_SPAM: false
+  WARNING_MESSAGE: "⚠️ {user}, please stop. Remaining warnings: {warnings}"
+  WARNING_TTL_MS: 50000
