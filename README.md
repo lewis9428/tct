@@ -109,6 +109,59 @@ pm2 stop {bot name}
 ---
 
 <details>
+ <summary>plugin</summary>
+
+### How To use plugin module
+
+### ➡️ `plugin`
+
+> This command manages the bot's plugins by listing, adding, or removing them from external sources. Changes require a bot restart to take effect.
+
+* **Authorization**: Can only be used by the bot owner.
+
+---
+
+* **Command**: `plugin list`
+    * **Action**: Displays a list of all plugins available to install.
+    * **How to use**: Send the message `plugin list`.
+
+---
+
+* **Command**: `plugin all`
+    * **Action**: Downloads and installs all available plugins.
+    * **How to use**: Send the message `plugin all`.
+
+---
+
+* **Command**: `plugin <plugin_names>`
+    * **Action**: Downloads and installs one or more specific plugins.
+    * **How to use**: Send `plugin cc,time,weather` to install the `cc`, `time`, and `weather` plugins. Names must be comma-separated without spaces.
+
+---
+
+* **Command**: `plugin remove all`
+    * **Action**: Deletes all managed plugin files from the `modules` directory.
+    * **How to use**: Send the message `plugin remove all`.
+
+---
+
+* **Command**: `plugin remove <plugin_names>`
+    * **Action**: Deletes one or more specific plugins.
+    * **How to use**: Send `plugin remove cc,time` to delete the `cc` and `time` plugins. Names must be comma-separated without spaces.
+
+---
+
+* **Examples**:
+    * To see all installable plugins: `plugin list`
+    * To install the `convert` and `dla` plugins: `plugin convert,dla`
+    * To remove the `football` plugin: `plugin remove football`
+
+
+
+
+</details>
+
+<details>
   <summary>common</summary>
 
 ### How to use common module
