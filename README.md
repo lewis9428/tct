@@ -457,17 +457,6 @@ antilink status gp:mycoolgroup
 ```bash
      antidelete status show
 ```
-> > > set where status to be send when deleted 
-
-```bash
-     antidelete status <jid>
-```
-> > > clear the target where statuses were being send before when deleted
- 
-```bash
-      antidelete status clear
-```
- 
 
 
 ### must be used in pm and not in group
