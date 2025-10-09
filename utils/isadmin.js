@@ -1,1 +1,388 @@
-(function(_0x6ce6ca,_0x1d9435){const _0x4cf192=_0x58c7,_0x5cfd2b=_0x6ce6ca();while(!![]){try{const _0x50e15c=-parseInt(_0x4cf192(0xfa))/(-0x1a53+0x1be9+-0x195)*(parseInt(_0x4cf192(0xcd))/(-0x17a3+-0x2f3+0x1a98))+-parseInt(_0x4cf192(0xe3))/(0x24db+-0x1062*-0x1+-0x353a)+-parseInt(_0x4cf192(0xb4))/(-0x1*0x2209+-0x12e0+0x1*0x34ed)+-parseInt(_0x4cf192(0xbf))/(0x72e*-0x1+0x1*-0x19c+0x8cf)*(-parseInt(_0x4cf192(0xf5))/(-0x1993+-0x194a+0x32e3))+-parseInt(_0x4cf192(0xd2))/(0x7e7+0x1*0x100b+-0x17eb)+-parseInt(_0x4cf192(0x10e))/(-0x1b05*0x1+0x12df+0x417*0x2)*(parseInt(_0x4cf192(0xad))/(0x2155+-0x25eb*-0x1+-0xb1*0x67))+-parseInt(_0x4cf192(0xef))/(-0xe96+0x1215*0x1+-0x375)*(-parseInt(_0x4cf192(0xcc))/(0x8f1+-0xd*-0x139+-0x18cb));if(_0x50e15c===_0x1d9435)break;else _0x5cfd2b['push'](_0x5cfd2b['shift']());}catch(_0x49a089){_0x5cfd2b['push'](_0x5cfd2b['shift']());}}}(_0x5db7,0xd037d+-0xc1427+0x7c15b));import{info as _0x4c6d42,warn as _0x5c5a44,error as _0x4006de}from'./logger.js';const info=()=>{},warn=_0x5c5a44,error=_0x4006de;function now(){const _0x106940=_0x58c7;return Date[_0x106940(0xc9)]();}const sleep=_0x7e295=>new Promise(_0x67dc32=>setTimeout(_0x67dc32,_0x7e295));function normalizeJid(_0x1a6995){const _0xb99976=_0x58c7;if(!_0x1a6995||typeof _0x1a6995!==_0xb99976(0xfe))return _0x1a6995;const _0x39279c=_0x1a6995[_0xb99976(0x118)]()[_0xb99976(0xd6)+'e'](),_0x1e275d=_0x39279c[_0xb99976(0xe0)]('@');if(_0x1e275d===-(0x1*-0x10ea+0x20e8+-0x1*0xffd)){const _0x2183c5=_0x39279c[_0xb99976(0xb9)](/[:/]/)[-0x330+0x100c*0x2+-0x32*0x94];return _0x2183c5;}const _0x3f02d8=_0x39279c['slice'](0x1378+0x1b1*0x13+-0x1*0x339b,_0x1e275d)[_0xb99976(0xb9)](/[:/]/)[0x16be+-0x2b0+0x11*-0x12e],_0xa0d78c=_0x39279c['slice'](_0x1e275d+(-0x89b*-0x1+0x1*-0x13a2+-0x161*-0x8));return _0x3f02d8+'@'+_0xa0d78c;}function jidEquals(_0x6a374e,_0xf1d11e){const _0x3515e6=_0x58c7;try{if(!_0x6a374e||!_0xf1d11e)return![];return normalizeJid(_0x6a374e)===normalizeJid(_0xf1d11e);}catch(_0xed5569){try{error(_0xed5569,_0x3515e6(0x10f)+_0x3515e6(0xde));}catch(_0x179110){}return![];}}function normalizeParticipantId(_0x607bec){const _0x5d5677=_0x58c7;if(!_0x607bec)return null;if(typeof _0x607bec===_0x5d5677(0xfe))return normalizeJid(_0x607bec);const _0x5bceb6=_0x607bec?.['id']??_0x607bec?.[_0x5d5677(0xb2)]??_0x607bec?.[_0x5d5677(0xc2)+'t']??null;return _0x5bceb6?normalizeJid(_0x5bceb6):null;}function _0x5db7(){const _0x1a22c6=['remove','1bKZQJA','eAttachedA','Metadata','gpHandler','string','articipant','messageStu','e:\x20group-p','add','e:\x20attach\x20','eSockMonit','clear','admin','mpt\x20#','message','invalidate','AdminCache','[isadmin]\x20','etch\x20for\x20','superAdmin','520LkvrUQ','jidEquals\x20','_adminCach','mpts\x20to\x20fe','ler','led','invite','includes','admins','tType','trim','s.upsert\x20h','promote','132876kzOgOT','ForChat\x20fa','ailed','s.update\x20h','filter','jid','failed','596232VXWXPM','th\x20error\x20o','superadmin','sender','groupMetad','split','change','nexpected\x20','delete','isadmin:\x20u','endsWith','219755eSbsUm','tch\x20metada','role','participan','map','Cache\x20fail','admin-cach','e:\x20message','null.\x20Atte','All\x203\x20atte','now','listeners\x20','key','11gqSMFE','2271662fXHMHR','andler\x20fai','ata','fetchGroup','iled','780794GjsXii','set','from','eHandlers','toLowerCas','isAdmin','icipants.u','function','messages.u','ta\x20for\x20','\x20failed\x20wi','sock','error','getGroupMe','indexOf','length','group-part','1848330TtsEhp','toString','isArray','get','clearAdmin','pdate','eFetches','upsertHand','Attached','demote','Metadata\x20f','bType','34098690IPdOOR','off','psert','tadata','\x20failed.','has','18NKDARt','remoteJid','bParameter','leave'];_0x5db7=function(){return _0x1a22c6;};return _0x5db7();}function buildAdminSetFromParticipants(_0x20558d=[]){const _0x4afe14=_0x58c7,_0x37fa38=new Set();for(const _0x5204c0 of _0x20558d){if(!_0x5204c0)continue;if(typeof _0x5204c0===_0x4afe14(0xfe))continue;const _0x5a60c5=normalizeParticipantId(_0x5204c0);if(!_0x5a60c5)continue;const _0x5a1a37=(_0x5204c0?.[_0x4afe14(0xc1)]||_0x5204c0?.['participan'+_0x4afe14(0x117)]||'')[_0x4afe14(0xe4)]()[_0x4afe14(0xd6)+'e'](),_0x3671d9=!!_0x5204c0?.[_0x4afe14(0xd7)]||!!_0x5204c0?.['isSuperAdm'+'in']||!!_0x5204c0?.[_0x4afe14(0x106)]||!!_0x5204c0?.[_0x4afe14(0x10d)]||!!_0x5204c0?.['isCreator']||_0x5a1a37===_0x4afe14(0x106)||_0x5a1a37==='creator'||_0x5a1a37===_0x4afe14(0xb6)||_0x5a1a37==='owner';if(_0x3671d9)_0x37fa38[_0x4afe14(0x102)](_0x5a60c5);}return _0x37fa38;}function getChatIdFromMessage(_0x350034){const _0x248436=_0x58c7;if(!_0x350034)return null;const _0x4cc0b7=_0x350034?.[_0x248436(0xcb)]?.['remoteJid']??_0x350034?.[_0x248436(0xf6)]??_0x350034?.['key']?.[_0x248436(0xd4)]??_0x350034?.[_0x248436(0xcb)]?.['participan'+'t']??null;return _0x4cc0b7||null;}function ensureAdminCache(_0x28d034){const _0x8716e3=_0x58c7;if(!_0x28d034)return;!_0x28d034[_0x8716e3(0x110)+'e']&&(_0x28d034['_adminCach'+'e']=new Map());if(!_0x28d034[_0x8716e3(0x110)+_0x8716e3(0xe9)])_0x28d034[_0x8716e3(0x110)+_0x8716e3(0xe9)]=new Map();const _0xd1535c=_0x32a881=>{const _0x3fc083=_0x8716e3;try{if(!_0x32a881||!_0x32a881['ev']||typeof _0x32a881['ev']['on']!==_0x3fc083(0xd9))return;if(_0x28d034['_adminCach'+_0x3fc083(0xd5)]&&_0x28d034['_adminCach'+_0x3fc083(0xd5)][_0x3fc083(0xdd)]===_0x32a881)return;if(_0x28d034['_adminCach'+_0x3fc083(0xd5)]&&_0x28d034[_0x3fc083(0x110)+_0x3fc083(0xd5)][_0x3fc083(0xdd)]){const _0x2bc7f2=_0x28d034[_0x3fc083(0x110)+_0x3fc083(0xd5)];try{if(_0x2bc7f2[_0x3fc083(0xdd)]['ev']&&typeof _0x2bc7f2[_0x3fc083(0xdd)]['ev'][_0x3fc083(0xf0)]===_0x3fc083(0xd9)){if(_0x2bc7f2[_0x3fc083(0xfd)])_0x2bc7f2[_0x3fc083(0xdd)]['ev'][_0x3fc083(0xf0)](_0x3fc083(0xe2)+_0x3fc083(0xd8)+_0x3fc083(0xe8),_0x2bc7f2[_0x3fc083(0xfd)]);if(_0x2bc7f2['upsertHand'+_0x3fc083(0x112)])_0x2bc7f2['sock']['ev'][_0x3fc083(0xf0)](_0x3fc083(0xda)+_0x3fc083(0xf1),_0x2bc7f2['upsertHand'+'ler']);}}catch(_0x29b5c5){}}const _0x359567=_0x4fc24f=>{const _0x7c12b=_0x3fc083;try{const {id:_0x5b6e46,participants:participants=[],action:_0x346875}=_0x4fc24f||{};if(!_0x5b6e46)return;const _0x276126=_0x5b6e46,_0xbe8c81=_0x28d034[_0x7c12b(0x110)+'e'][_0x7c12b(0xe6)](_0x276126);if(!_0xbe8c81){if([_0x7c12b(0x102),_0x7c12b(0xf9),_0x7c12b(0xf8),'invite','change',_0x7c12b(0xac),_0x7c12b(0xec)][_0x7c12b(0x115)](_0x346875)){if(_0x28d034[_0x7c12b(0x110)+'e'][_0x7c12b(0xf4)](_0x276126))_0x28d034['_adminCach'+'e']['delete'](_0x276126);}return;}const _0x5a4c3e=participants[_0x7c12b(0xc3)](normalizeParticipantId)[_0x7c12b(0xb1)](Boolean);if(_0x346875===_0x7c12b(0xac)||_0x346875==='demote'){const _0x2f40cd=new Set(_0xbe8c81[_0x7c12b(0x116)]);if(_0x346875===_0x7c12b(0xac)){for(const _0x1f2d45 of _0x5a4c3e)_0x2f40cd[_0x7c12b(0x102)](_0x1f2d45);}else{for(const _0x3ccec3 of _0x5a4c3e)_0x2f40cd[_0x7c12b(0xbc)](_0x3ccec3);}_0xbe8c81['admins']=_0x2f40cd,_0x28d034[_0x7c12b(0x110)+'e'][_0x7c12b(0xd3)](_0x276126,_0xbe8c81);return;}if([_0x7c12b(0x102),'remove',_0x7c12b(0xf8),_0x7c12b(0x114),_0x7c12b(0xba)][_0x7c12b(0x115)](_0x346875)){_0x28d034[_0x7c12b(0x110)+'e'][_0x7c12b(0xbc)](_0x276126);return;}}catch(_0x37b114){try{error(_0x37b114,_0x7c12b(0xc5)+_0x7c12b(0x101)+_0x7c12b(0xff)+_0x7c12b(0xb0)+'andler\x20fai'+'led');}catch(_0x21d5c7){}}},_0x5cc9a1=({messages:_0x4399e4})=>{const _0x2ef385=_0x3fc083;try{if(!Array[_0x2ef385(0xe5)](_0x4399e4))return;for(const _0x9813bb of _0x4399e4){const _0xdd451c=_0x9813bb?.[_0x2ef385(0x108)]?.[_0x2ef385(0x100)+'bType']??_0x9813bb?.[_0x2ef385(0x100)+_0x2ef385(0xee)],_0x4daf61=_0x9813bb?.['message']?.[_0x2ef385(0x100)+'bParameter'+'s']??_0x9813bb?.[_0x2ef385(0x100)+_0x2ef385(0xf7)+'s'],_0x32bcea=getChatIdFromMessage(_0x9813bb);if(!_0x32bcea||!_0xdd451c)continue;const _0x4bdaaf=_0x28d034[_0x2ef385(0x110)+'e'][_0x2ef385(0xe6)](_0x32bcea);if(!_0x4bdaaf){[0x1*-0x1408+0x158b*-0x1+-0x1*-0x29ab,-0x818+-0x38a+0x3*0x3e9,-0x8f9*0x4+-0x5d4+0x29d2,0x499*0x6+0x1*-0x2221+0x6a6,-0x6a9*0x5+-0x2089*-0x1+0xe1*0x1,-0xc1a+-0x121*0x3+0xf9b][_0x2ef385(0x115)](_0xdd451c)&&_0x28d034[_0x2ef385(0x110)+'e']['delete'](_0x32bcea);continue;}const _0x328b7e=Array['isArray'](_0x4daf61)?_0x4daf61['map'](normalizeParticipantId)[_0x2ef385(0xb1)](Boolean):[];if(_0xdd451c===0x1421*-0x1+0x2138+0xb*-0x12e&&_0x328b7e[_0x2ef385(0xe1)]){for(const _0x4857ab of _0x328b7e)_0x4bdaaf['admins']['add'](_0x4857ab);_0x28d034[_0x2ef385(0x110)+'e'][_0x2ef385(0xd3)](_0x32bcea,_0x4bdaaf);}else{if(_0xdd451c===-0xdf*0xb+-0x2*-0x610+-0x26d&&_0x328b7e[_0x2ef385(0xe1)]){for(const _0x35cd0e of _0x328b7e)_0x4bdaaf[_0x2ef385(0x116)][_0x2ef385(0xbc)](_0x35cd0e);_0x28d034[_0x2ef385(0x110)+'e'][_0x2ef385(0xd3)](_0x32bcea,_0x4bdaaf);}else[0x10a6+0x20eb+-0x3179,0x613*0x1+-0xc6*0x9+0x2a*0x6,0xf0f+0x131a+0x1*-0x220f,-0xe85+0x2480*-0x1+0x3320][_0x2ef385(0x115)](_0xdd451c)&&_0x28d034[_0x2ef385(0x110)+'e'][_0x2ef385(0xbc)](_0x32bcea);}}}catch(_0x5b55b){try{error(_0x5b55b,'admin-cach'+_0x2ef385(0xc6)+_0x2ef385(0x119)+_0x2ef385(0xce)+_0x2ef385(0x113));}catch(_0x2757dd){}}};_0x32a881['ev']['on']('group-part'+'icipants.u'+_0x3fc083(0xe8),_0x359567),_0x32a881['ev']['on'](_0x3fc083(0xda)+_0x3fc083(0xf1),_0x5cc9a1),_0x28d034['_adminCach'+_0x3fc083(0xd5)]={'sock':_0x32a881,'gpHandler':_0x359567,'upsertHandler':_0x5cc9a1},_0x28d034[_0x3fc083(0x110)+'eListeners'+_0x3fc083(0xeb)]=!![],_0x28d034['_adminCach'+_0x3fc083(0xfb)+'t']=now();}catch(_0x25ecc8){try{error(_0x25ecc8,_0x3fc083(0xc5)+_0x3fc083(0x103)+_0x3fc083(0xca)+_0x3fc083(0xb3));}catch(_0x4338ca){}}};_0x28d034['sock']&&_0x28d034[_0x8716e3(0xdd)]['ev']&&typeof _0x28d034[_0x8716e3(0xdd)]['ev']['on']===_0x8716e3(0xd9)&&_0xd1535c(_0x28d034[_0x8716e3(0xdd)]),!_0x28d034[_0x8716e3(0x110)+_0x8716e3(0x104)+'or']&&(_0x28d034[_0x8716e3(0x110)+_0x8716e3(0x104)+'or']=setInterval(()=>{const _0xe153f1=_0x8716e3;try{const _0x4dba6a=_0x28d034[_0xe153f1(0xdd)],_0xe8e5fe=_0x28d034['_adminCach'+_0xe153f1(0xd5)]&&_0x28d034[_0xe153f1(0x110)+'eHandlers'][_0xe153f1(0xdd)];_0x4dba6a&&_0x4dba6a!==_0xe8e5fe&&_0xd1535c(_0x4dba6a);}catch(_0x25ddb3){}},0x1268+0x2*0xb8d+-0x21b2));}async function fetchGroupMetadataDeduped(_0x2ef7df,_0x4d35d7){const _0x58d844=_0x58c7;if(!_0x2ef7df||!_0x4d35d7)return null;if(!_0x2ef7df[_0x58d844(0x110)+_0x58d844(0xe9)])_0x2ef7df[_0x58d844(0x110)+_0x58d844(0xe9)]=new Map();const _0x4bfa5b=_0x2ef7df[_0x58d844(0x110)+_0x58d844(0xe9)][_0x58d844(0xe6)](_0x4d35d7);if(_0x4bfa5b)return _0x4bfa5b;const _0x59949e=(async()=>{const _0x5c0d15=_0x58d844;for(let _0x459bb0=0x2*-0xdf0+-0x5*-0x701+0x725*-0x1;_0x459bb0<-0x3d8+0x2*0x529+-0x677;_0x459bb0++){try{const _0x1a3e03=typeof _0x2ef7df[_0x5c0d15(0xb8)+'ata']==='function'&&await _0x2ef7df[_0x5c0d15(0xb8)+'ata'](_0x4d35d7)||_0x2ef7df[_0x5c0d15(0xdd)]&&typeof _0x2ef7df[_0x5c0d15(0xdd)]['groupMetad'+_0x5c0d15(0xcf)]===_0x5c0d15(0xd9)&&await _0x2ef7df[_0x5c0d15(0xdd)]['groupMetad'+_0x5c0d15(0xcf)](_0x4d35d7)||typeof _0x2ef7df[_0x5c0d15(0xdf)+_0x5c0d15(0xf2)]===_0x5c0d15(0xd9)&&await _0x2ef7df[_0x5c0d15(0xdf)+_0x5c0d15(0xf2)](_0x4d35d7)||_0x2ef7df[_0x5c0d15(0xdd)]&&typeof _0x2ef7df[_0x5c0d15(0xdd)]['fetchGroup'+_0x5c0d15(0xfc)]===_0x5c0d15(0xd9)&&await _0x2ef7df[_0x5c0d15(0xdd)][_0x5c0d15(0xd0)+_0x5c0d15(0xfc)](_0x4d35d7)||null;if(_0x1a3e03)return _0x1a3e03;warn(_0x5c0d15(0x10b)+_0x5c0d15(0xed)+_0x5c0d15(0x10c)+_0x4d35d7+('\x20returned\x20'+_0x5c0d15(0xc7)+_0x5c0d15(0x107))+(_0x459bb0+(-0x3*0x662+0x232a+0x1003*-0x1))+'.');}catch(_0x8664){warn(_0x5c0d15(0x10b)+_0x5c0d15(0xed)+'etch\x20for\x20'+_0x4d35d7+(_0x5c0d15(0xdc)+_0x5c0d15(0xb5)+'n\x20attempt\x20'+'#')+(_0x459bb0+(-0xee8+0x36a*0x3+-0x1*-0x4ab))+':\x20'+_0x8664[_0x5c0d15(0x108)]);}_0x459bb0<0x1ce3+0x1*0x183b+0x6*-0x8da&&await sleep((-0x255c+-0x9ed+-0x9b1*-0x5)*(_0x459bb0+(-0x97*-0x29+0xe5f+-0x268d)));}return error(_0x5c0d15(0x10b)+_0x5c0d15(0xc8)+_0x5c0d15(0x111)+_0x5c0d15(0xc0)+_0x5c0d15(0xdb)+_0x4d35d7+_0x5c0d15(0xf3)),null;})()['finally'](()=>{const _0x27b867=_0x58d844;try{_0x2ef7df[_0x27b867(0x110)+_0x27b867(0xe9)]&&_0x2ef7df['_adminCach'+_0x27b867(0xe9)][_0x27b867(0xbc)](_0x4d35d7);}catch(_0x3c466d){}});return _0x2ef7df[_0x58d844(0x110)+'eFetches']['set'](_0x4d35d7,_0x59949e),_0x59949e;}function _0x58c7(_0x144b0b,_0x36d9ad){const _0x34dd5b=_0x5db7();return _0x58c7=function(_0x1b0bf9,_0x57d9e6){_0x1b0bf9=_0x1b0bf9-(0x129*0x7+0x12d5+-0x349*0x8);let _0x566f82=_0x34dd5b[_0x1b0bf9];return _0x566f82;},_0x58c7(_0x144b0b,_0x36d9ad);}export function invalidateAdminCacheForChat(_0x248f3f,_0x3b3664){const _0x3485e5=_0x58c7;try{if(!_0x248f3f||!_0x3b3664)return;_0x248f3f[_0x3485e5(0x110)+'e']&&_0x248f3f[_0x3485e5(0x110)+'e']['has'](_0x3b3664)&&_0x248f3f[_0x3485e5(0x110)+'e'][_0x3485e5(0xbc)](_0x3b3664);}catch(_0x391b80){try{error(_0x391b80,_0x3485e5(0x109)+_0x3485e5(0x10a)+_0x3485e5(0xae)+_0x3485e5(0xd1));}catch(_0x4c070b){}}}export function clearAdminCache(_0x45b8fe){const _0x45a050=_0x58c7;try{if(!_0x45b8fe)return;if(_0x45b8fe[_0x45a050(0x110)+'e'])_0x45b8fe[_0x45a050(0x110)+'e'][_0x45a050(0x105)]();}catch(_0x1d4583){try{error(_0x1d4583,_0x45a050(0xe7)+_0x45a050(0xc4)+'ed');}catch(_0xcd4a7){}}}export function teardownAdminCache(_0x37a934){const _0xc29fbc=_0x58c7;try{if(!_0x37a934)return;if(_0x37a934[_0xc29fbc(0x110)+_0xc29fbc(0x104)+'or']){try{clearInterval(_0x37a934['_adminCach'+_0xc29fbc(0x104)+'or']);}catch(_0x5ab9ba){}_0x37a934[_0xc29fbc(0x110)+_0xc29fbc(0x104)+'or']=null;}if(_0x37a934['_adminCach'+_0xc29fbc(0xd5)]&&_0x37a934[_0xc29fbc(0x110)+_0xc29fbc(0xd5)][_0xc29fbc(0xdd)])try{const _0x3b3cdc=_0x37a934[_0xc29fbc(0x110)+'eHandlers'];if(_0x3b3cdc[_0xc29fbc(0xdd)]?.['ev']?.['off']){if(_0x3b3cdc['gpHandler'])_0x3b3cdc[_0xc29fbc(0xdd)]['ev'][_0xc29fbc(0xf0)](_0xc29fbc(0xe2)+'icipants.u'+'pdate',_0x3b3cdc['gpHandler']);if(_0x3b3cdc[_0xc29fbc(0xea)+_0xc29fbc(0x112)])_0x3b3cdc[_0xc29fbc(0xdd)]['ev']['off'](_0xc29fbc(0xda)+_0xc29fbc(0xf1),_0x3b3cdc['upsertHand'+_0xc29fbc(0x112)]);}}catch(_0x128ea0){}if(_0x37a934[_0xc29fbc(0x110)+'e']){try{_0x37a934[_0xc29fbc(0x110)+'e'][_0xc29fbc(0x105)]();}catch(_0x442529){}_0x37a934['_adminCach'+'e']=new Map();}if(_0x37a934['_adminCach'+_0xc29fbc(0xe9)]){try{_0x37a934['_adminCach'+_0xc29fbc(0xe9)][_0xc29fbc(0x105)]();}catch(_0x5b7f53){}_0x37a934[_0xc29fbc(0x110)+'eFetches']=new Map();}_0x37a934[_0xc29fbc(0x110)+'eHandlers']=null,_0x37a934[_0xc29fbc(0x110)+'eListeners'+_0xc29fbc(0xeb)]=![];}catch(_0x287b28){try{error(_0x287b28,'teardownAd'+'minCache\x20f'+_0xc29fbc(0xaf));}catch(_0xceb54){}}}export async function isadmin(_0x30e211,_0x2862b6){const _0x1c62d4=_0x58c7;try{if(!_0x30e211||!_0x2862b6?.[_0x1c62d4(0xcb)])return![];if(_0x2862b6[_0x1c62d4(0xcb)]['fromMe'])return!![];const _0x33b41e=_0x2862b6[_0x1c62d4(0xcb)]['remoteJid']||_0x2862b6['remoteJid']||null;if(!_0x33b41e||!String(_0x33b41e)[_0x1c62d4(0xbe)]('@g.us'))return![];const _0x308701=_0x2862b6['key'][_0x1c62d4(0xc2)+'t']||_0x2862b6[_0x1c62d4(0xc2)+'t']||_0x2862b6[_0x1c62d4(0xb7)]||_0x2862b6[_0x1c62d4(0xcb)]?.[_0x1c62d4(0xd4)]||null;if(!_0x308701)return![];const _0x24df5d=normalizeJid(_0x308701);ensureAdminCache(_0x30e211);const _0x1b327d=_0x30e211[_0x1c62d4(0x110)+'e']&&_0x30e211[_0x1c62d4(0x110)+'e'][_0x1c62d4(0xe6)](_0x33b41e);if(_0x1b327d&&_0x1b327d[_0x1c62d4(0x116)]instanceof Set){for(const _0x35b65f of _0x1b327d[_0x1c62d4(0x116)]){if(_0x35b65f&&jidEquals(_0x35b65f,_0x24df5d))return!![];}return![];}const _0x122d8f=await fetchGroupMetadataDeduped(_0x30e211,_0x33b41e);if(!_0x122d8f)return![];const _0x140247=Array[_0x1c62d4(0xe5)](_0x122d8f?.['participan'+'ts'])?_0x122d8f['participan'+'ts']:[],_0x383f22=buildAdminSetFromParticipants(_0x140247);_0x30e211['_adminCach'+'e'][_0x1c62d4(0xd3)](_0x33b41e,{'admins':_0x383f22});for(const _0x20fded of _0x383f22){if(_0x20fded&&jidEquals(_0x20fded,_0x24df5d))return!![];}return![];}catch(_0x5ca0ee){try{error(_0x5ca0ee,_0x1c62d4(0xbd)+_0x1c62d4(0xbb)+_0x1c62d4(0xde));}catch(_0x59261d){}return![];}}export default{'isadmin':isadmin,'invalidateAdminCacheForChat':invalidateAdminCacheForChat,'clearAdminCache':clearAdminCache,'teardownAdminCache':teardownAdminCache};
+// utils/isadmin.js
+import { info as _info, warn as _warn, error as _error } from './logger.js';
+
+/**
+ * isadmin.js v2.0.0
+ *
+ * This version introduces a permanent, event-driven cache and resilient fetching.
+ * - PERMANENT CACHE: The admin list for a group is now cached indefinitely. The 7-day TTL has been removed.
+ * - EVENT-DRIVEN REFRESH: The cache is still intelligently invalidated or updated instantly when a user is promoted, demoted, added, or removed from a group.
+ * - RESILIENT FETCHING: On a cache miss, the function will now retry the network request up to 3 times to overcome transient network errors, preventing admins from being accidentally warned.
+ */
+
+/* ------------------------- Logging (silent except errors) ------------------------- */
+const info = () => {};
+const warn = _warn; // Use the real warn for retry attempts
+const error = _error;
+
+/* ------------------------- Utilities ------------------------- */
+
+function now() {
+  return Date.now();
+}
+
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+function normalizeJid(jid) {
+  if (!jid || typeof jid !== 'string') return jid;
+  const s = jid.trim().toLowerCase();
+  const atIdx = s.indexOf('@');
+  if (atIdx === -1) {
+    const local = s.split(/[:/]/)[0];
+    return local;
+  }
+  const local = s.slice(0, atIdx).split(/[:/]/)[0];
+  const domain = s.slice(atIdx + 1);
+  return `${local}@${domain}`;
+}
+
+function jidEquals(a, b) {
+  try {
+    if (!a || !b) return false;
+    return normalizeJid(a) === normalizeJid(b);
+  } catch (e) {
+    try { error(e, 'jidEquals error'); } catch (ee) {}
+    return false;
+  }
+}
+
+function normalizeParticipantId(p) {
+  if (!p) return null;
+  if (typeof p === 'string') return normalizeJid(p);
+  const possible = p?.id ?? p?.jid ?? p?.participant ?? null;
+  return possible ? normalizeJid(possible) : null;
+}
+
+function buildAdminSetFromParticipants(participants = []) {
+  const admins = new Set();
+  for (const p of participants) {
+    if (!p) continue;
+    if (typeof p === 'string') {
+      continue;
+    }
+
+    const id = normalizeParticipantId(p);
+    if (!id) continue;
+
+    const role = (p?.role || p?.participantType || '').toString().toLowerCase();
+    const isAdminFlag =
+      !!p?.isAdmin ||
+      !!p?.isSuperAdmin ||
+      !!p?.admin ||
+      !!p?.superAdmin ||
+      !!p?.isCreator ||
+      role === 'admin' ||
+      role === 'creator' ||
+      role === 'superadmin' ||
+      role === 'owner';
+
+    if (isAdminFlag) admins.add(id);
+  }
+  return admins;
+}
+
+/* ------------------------- Helpers for message shapes ------------------------- */
+
+function getChatIdFromMessage(m) {
+  if (!m) return null;
+  const candidate =
+    m?.key?.remoteJid ??
+    m?.remoteJid ??
+    m?.key?.from ??
+    m?.key?.participant ??
+    null;
+  return candidate || null;
+}
+
+/* ------------------------- Attachment / Reattachment ------------------------- */
+
+function ensureAdminCache(bot) {
+  if (!bot) return;
+
+  if (!bot._adminCache) {
+    bot._adminCache = new Map();
+  }
+  
+  // bot.adminCacheTtl is no longer used, but we don't remove it to avoid breaking other potential dependencies.
+
+  if (!bot._adminCacheFetches) bot._adminCacheFetches = new Map();
+
+  const attachListenersToSock = (sock) => {
+    try {
+      if (!sock || !sock.ev || typeof sock.ev.on !== 'function') return;
+      if (bot._adminCacheHandlers && bot._adminCacheHandlers.sock === sock) {
+        return;
+      }
+
+      if (bot._adminCacheHandlers && bot._adminCacheHandlers.sock) {
+        const old = bot._adminCacheHandlers;
+        try {
+          if (old.sock.ev && typeof old.sock.ev.off === 'function') {
+            if (old.gpHandler) old.sock.ev.off('group-participants.update', old.gpHandler);
+            if (old.upsertHandler) old.sock.ev.off('messages.upsert', old.upsertHandler);
+          }
+        } catch (e) {}
+      }
+
+      const gpHandler = (update) => {
+        try {
+          const { id: chatIdRaw, participants = [], action } = update || {};
+          if (!chatIdRaw) return;
+          const chatId = chatIdRaw;
+          const cacheEntry = bot._adminCache.get(chatId);
+          
+          if (!cacheEntry) {
+              if (['add', 'remove', 'leave', 'invite', 'change', 'promote', 'demote'].includes(action)) {
+                if (bot._adminCache.has(chatId)) bot._adminCache.delete(chatId);
+              }
+              return;
+          }
+
+          const partIds = participants.map(normalizeParticipantId).filter(Boolean);
+
+          if (action === 'promote' || action === 'demote') {
+            const admins = new Set(cacheEntry.admins);
+            if (action === 'promote') {
+              for (const pid of partIds) admins.add(pid);
+            } else {
+              for (const pid of partIds) admins.delete(pid);
+            }
+            cacheEntry.admins = admins;
+            bot._adminCache.set(chatId, cacheEntry);
+            return;
+          }
+
+          if (['add', 'remove', 'leave', 'invite', 'change'].includes(action)) {
+            bot._adminCache.delete(chatId);
+            return;
+          }
+        } catch (e) {
+          try { error(e, 'admin-cache: group-participants.update handler failed'); } catch (ee) {}
+        }
+      };
+
+      const upsertHandler = ({ messages }) => {
+        try {
+          if (!Array.isArray(messages)) return;
+          for (const m of messages) {
+            const stub = m?.message?.messageStubType ?? m?.messageStubType;
+            const params = m?.message?.messageStubParameters ?? m?.messageStubParameters;
+            const chatId = getChatIdFromMessage(m);
+            if (!chatId || !stub) continue;
+
+            const cacheEntry = bot._adminCache.get(chatId);
+
+            if (!cacheEntry) {
+              if ([24, 25, 26, 27, 29, 30].includes(stub)) {
+                bot._adminCache.delete(chatId);
+              }
+              continue;
+            }
+
+            const paramIds = Array.isArray(params) ? params.map(normalizeParticipantId).filter(Boolean) : [];
+
+            if (stub === 29 && paramIds.length) { // promoted
+              for (const pid of paramIds) cacheEntry.admins.add(pid);
+              bot._adminCache.set(chatId, cacheEntry);
+            } else if (stub === 30 && paramIds.length) { // demoted
+              for (const pid of paramIds) cacheEntry.admins.delete(pid);
+              bot._adminCache.set(chatId, cacheEntry);
+            } else if ([24, 25, 26, 27].includes(stub)) { // structural changes
+              bot._adminCache.delete(chatId);
+            }
+          }
+        } catch (e) {
+          try { error(e, 'admin-cache: messages.upsert handler failed'); } catch (ee) {}
+        }
+      };
+
+      sock.ev.on('group-participants.update', gpHandler);
+      sock.ev.on('messages.upsert', upsertHandler);
+
+      bot._adminCacheHandlers = { sock, gpHandler, upsertHandler };
+      bot._adminCacheListenersAttached = true;
+      bot._adminCacheAttachedAt = now();
+    } catch (e) {
+      try { error(e, 'admin-cache: attach listeners failed'); } catch (ee) {}
+    }
+  };
+
+  if (bot.sock && bot.sock.ev && typeof bot.sock.ev.on === 'function') {
+    attachListenersToSock(bot.sock);
+  }
+
+  if (!bot._adminCacheSockMonitor) {
+    bot._adminCacheSockMonitor = setInterval(() => {
+      try {
+        const currentSock = bot.sock;
+        const attachedSock = bot._adminCacheHandlers && bot._adminCacheHandlers.sock;
+        if (currentSock && currentSock !== attachedSock) {
+          attachListenersToSock(currentSock);
+        }
+      } catch (e) {}
+    }, 2000);
+  }
+}
+
+/* ------------------------- Resilient Fetch with Retries ------------------------- */
+
+async function fetchGroupMetadataDeduped(bot, chatId) {
+  if (!bot || !chatId) return null;
+  if (!bot._adminCacheFetches) bot._adminCacheFetches = new Map();
+
+  const existing = bot._adminCacheFetches.get(chatId);
+  if (existing) return existing;
+
+  const p = (async () => {
+    // --- NEW: RETRY LOGIC ---
+    for (let i = 0; i < 3; i++) {
+        try {
+            const metadata =
+                (typeof bot.groupMetadata === 'function' && (await bot.groupMetadata(chatId))) ||
+                (bot.sock && typeof bot.sock.groupMetadata === 'function' && (await bot.sock.groupMetadata(chatId))) ||
+                (typeof bot.getGroupMetadata === 'function' && (await bot.getGroupMetadata(chatId))) ||
+                (bot.sock && typeof bot.sock.fetchGroupMetadata === 'function' && (await bot.sock.fetchGroupMetadata(chatId))) ||
+                null;
+            
+            // If we get a successful result, return it immediately.
+            if (metadata) {
+                return metadata;
+            }
+
+            // If metadata is null but no error was thrown, it's still a failure to fetch.
+            warn(`[isadmin] Metadata fetch for ${chatId} returned null. Attempt #${i + 1}.`);
+
+        } catch (e) {
+            warn(`[isadmin] Metadata fetch for ${chatId} failed with error on attempt #${i + 1}: ${e.message}`);
+        }
+        
+        // If it's not the last attempt, wait before retrying.
+        if (i < 2) {
+            await sleep(300 * (i + 1)); // Wait 300ms, then 600ms
+        }
+    }
+    
+    // If all retries fail, log a final error and return null.
+    error(`[isadmin] All 3 attempts to fetch metadata for ${chatId} failed.`);
+    return null;
+    // --- END: RETRY LOGIC ---
+  })().finally(() => {
+      // Always remove the in-flight promise after it resolves or rejects.
+      try { bot._adminCacheFetches && bot._adminCacheFetches.delete(chatId); } catch (ee) {}
+  });
+
+  bot._adminCacheFetches.set(chatId, p);
+  return p;
+}
+
+
+/* ------------------------- Public helpers ------------------------- */
+
+export function invalidateAdminCacheForChat(bot, chatId) {
+  try {
+    if (!bot || !chatId) return;
+    if (bot._adminCache && bot._adminCache.has(chatId)) {
+      bot._adminCache.delete(chatId);
+    }
+  } catch (e) {
+    try { error(e, 'invalidateAdminCacheForChat failed'); } catch (ee) {}
+  }
+}
+
+export function clearAdminCache(bot) {
+  try {
+    if (!bot) return;
+    if (bot._adminCache) bot._adminCache.clear();
+  } catch (e) {
+    try { error(e, 'clearAdminCache failed'); } catch (ee) {}
+  }
+}
+
+export function teardownAdminCache(bot) {
+  try {
+    if (!bot) return;
+    if (bot._adminCacheSockMonitor) {
+      try { clearInterval(bot._adminCacheSockMonitor); } catch (e) {}
+      bot._adminCacheSockMonitor = null;
+    }
+    if (bot._adminCacheHandlers && bot._adminCacheHandlers.sock) {
+      try {
+        const old = bot._adminCacheHandlers;
+        if (old.sock?.ev?.off) {
+          if (old.gpHandler) old.sock.ev.off('group-participants.update', old.gpHandler);
+          if (old.upsertHandler) old.sock.ev.off('messages.upsert', old.upsertHandler);
+        }
+      } catch (e) {}
+    }
+    if (bot._adminCache) {
+      try { bot._adminCache.clear(); } catch (e) {}
+      bot._adminCache = new Map();
+    }
+    if (bot._adminCacheFetches) {
+      try { bot._adminCacheFetches.clear(); } catch (e) {}
+      bot._adminCacheFetches = new Map();
+    }
+    bot._adminCacheHandlers = null;
+    bot._adminCacheListenersAttached = false;
+  } catch (e) {
+    try { error(e, 'teardownAdminCache failed'); } catch (ee) {}
+  }
+}
+
+/* ------------------------- isadmin function ------------------------- */
+
+export async function isadmin(bot, ctx) {
+  try {
+    if (!bot || !ctx?.key) return false;
+    if (ctx.key.fromMe) return true;
+
+    const chatId = ctx.key.remoteJid || ctx.remoteJid || null;
+    if (!chatId || !String(chatId).endsWith('@g.us')) {
+      return false; // Not a group
+    }
+
+    const senderRaw = ctx.key.participant || ctx.participant || ctx.sender || ctx.key?.from || null;
+    if (!senderRaw) return false;
+    const sender = normalizeJid(senderRaw);
+
+    ensureAdminCache(bot);
+
+    // --- MODIFIED: PERMANENT CACHE CHECK ---
+    // Fast-path: Check for a permanent cached entry. No expiry check needed.
+    const cached = bot._adminCache && bot._adminCache.get(chatId);
+    if (cached && cached.admins instanceof Set) {
+      for (const a of cached.admins) {
+        if (a && jidEquals(a, sender)) return true;
+      }
+      return false;
+    }
+    // --- END MODIFICATION ---
+
+    // Cache miss -> fetch metadata (now with retries)
+    const metadata = await fetchGroupMetadataDeduped(bot, chatId);
+    if (!metadata) {
+      // All fetch attempts failed -> return false (safe)
+      return false;
+    }
+
+    const participants = Array.isArray(metadata?.participants) ? metadata.participants : [];
+    const admins = buildAdminSetFromParticipants(participants);
+
+    // --- MODIFIED: PERSIST PERMANENT CACHE ---
+    // Persist in cache without any TTL or expiry.
+    bot._adminCache.set(chatId, { admins });
+    // --- END MODIFICATION ---
+
+    for (const a of admins) {
+      if (a && jidEquals(a, sender)) return true;
+    }
+    return false;
+  } catch (err) {
+    try { error(err, 'isadmin: unexpected error'); } catch (e) {}
+    return false;
+  }
+}
+
+/* ------------------------- Exports (maintain API) ------------------------- */
+
+export default { isadmin, invalidateAdminCacheForChat, clearAdminCache, teardownAdminCache };

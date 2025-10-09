@@ -1,1 +1,536 @@
-const _0x397228=_0xe678;(function(_0x4637b4,_0x3b8e04){const _0x1fcaba=_0xe678,_0x2118ae=_0x4637b4();while(!![]){try{const _0x39503e=parseInt(_0x1fcaba(0x176))/(-0x211+-0x7f3+0xa05)+parseInt(_0x1fcaba(0x1ab))/(-0x14ae*-0x1+-0x1*-0x1c4b+-0x30f7)*(parseInt(_0x1fcaba(0x174))/(0x486+-0xad0+-0x64d*-0x1))+parseInt(_0x1fcaba(0x10e))/(-0x4f5+0xca0+-0x3*0x28d)+-parseInt(_0x1fcaba(0x1c7))/(-0x1b76+0x12a2+-0x5*-0x1c5)+-parseInt(_0x1fcaba(0x1be))/(-0x2b*-0x7+0x225e+0x1*-0x2385)*(-parseInt(_0x1fcaba(0x137))/(-0x8fd*-0x1+0x1e*0x9e+-0x1b7a*0x1))+-parseInt(_0x1fcaba(0x14f))/(-0x5b1*0x1+-0x1b55+0x210e)*(-parseInt(_0x1fcaba(0x1c5))/(0x4*-0x43f+-0x13e*0x12+-0x2761*-0x1))+-parseInt(_0x1fcaba(0x170))/(0x16ee*0x1+-0x19af+0x5*0x8f)*(parseInt(_0x1fcaba(0x19a))/(-0x2fe*-0x1+-0x256d+0x227a));if(_0x39503e===_0x3b8e04)break;else _0x2118ae['push'](_0x2118ae['shift']());}catch(_0xf63526){_0x2118ae['push'](_0x2118ae['shift']());}}}(_0x44cc,-0xaea*0x23+0x51fd5+0x303*0x6f));import{info,warn,error}from'../utils/logger.js';import{db}from'../utils/database.js';import{getConfig}from'../utils/config.js';import{isadmin}from'../utils/isadmin.js';import{getDefault,getConnection}from'../utils/connection.js';function _0xe678(_0x325841,_0x3ec95a){const _0x400f70=_0x44cc();return _0xe678=function(_0x677c4f,_0x14878b){_0x677c4f=_0x677c4f-(-0x1591*0x1+0xe53*-0x1+-0x1279*-0x2);let _0x451619=_0x400f70[_0x677c4f];return _0x451619;},_0xe678(_0x325841,_0x3ec95a);}import*as _0x1aad7d from'../utils/groups.js';import{isSudo,userJidFromCtx,listSudo,normalizeToJid}from'../utils/sudo.js';import{getBotJid}from'../utils/bot-state.js';import _0x2f9115 from'linkify-it';import{createRequire}from'module';const require=createRequire(import.meta[_0x397228(0x139)]),tlds=require('tlds');import _0x7cbcd from'axios';import{resolve as _0x2a2576}from'dns/promises';export const name=_0x397228(0x118);export const version=_0x397228(0x1ba);export const priority=0xd6a+-0x21c6+-0x20*-0xa6;export const commands=[_0x397228(0x118),_0x397228(0x16d)];const TABLE_SETTINGS='antilink_s'+'ettings';let botRef=null,shuttingDown=![],config={};const linkify=_0x2f9115();linkify['tlds'](tlds);const perChatQueue=new Map(),perChatProcessing=new Map();let activeChats=-0x1e32+0x3*0x3fb+0x1*0x1241;const processedMessageIds=new Map(),perUserWarnings=new Map();async function ensureSchema(){const _0x1f6a51=_0x397228;try{await db[_0x1f6a51(0x1af)]('\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20'+_0x1f6a51(0x19d)+_0x1f6a51(0x1bc)+_0x1f6a51(0x1ad)+TABLE_SETTINGS+(_0x1f6a51(0x1ae)+_0x1f6a51(0x114)+_0x1f6a51(0x11a)+_0x1f6a51(0x1a8)+_0x1f6a51(0x1c4)+_0x1f6a51(0x17f)+_0x1f6a51(0x11b)+_0x1f6a51(0x1cd)+'FAULT\x200,\x0a\x20'+_0x1f6a51(0x17f)+_0x1f6a51(0x190)+_0x1f6a51(0x1cf)+_0x1f6a51(0x133)+_0x1f6a51(0x16a)+_0x1f6a51(0x184)+_0x1f6a51(0x140))),info(_0x1f6a51(0x127)+_0x1f6a51(0x188)+_0x1f6a51(0x115)+'ured.');}catch(_0x4beacd){error(_0x4beacd,_0x1f6a51(0x127)+'\x20schema\x20cr'+_0x1f6a51(0x12e)+'led');throw _0x4beacd;}}async function getGroupSetting(_0x26c1b1){const _0xcfc4b6=_0x397228;try{const _0xdb2925=await db[_0xcfc4b6(0x13f)]('SELECT\x20ena'+_0xcfc4b6(0x1a4)+_0xcfc4b6(0x145)+'\x20'+TABLE_SETTINGS+(_0xcfc4b6(0x16b)+'t_jid\x20=\x20?'),[_0x26c1b1]);return{'enabled':!!_0xdb2925?.[_0xcfc4b6(0x1b0)],'whitelist':_0xdb2925?JSON[_0xcfc4b6(0x163)](_0xdb2925[_0xcfc4b6(0x112)]||'[]'):[]};}catch(_0x24e96e){return warn(_0xcfc4b6(0x127)+_0xcfc4b6(0x164)+_0xcfc4b6(0x14d)+'or\x20for\x20'+_0x26c1b1+':\x20'+(_0x24e96e?.[_0xcfc4b6(0x122)]||_0x24e96e)),{'enabled':![],'whitelist':[]};}}async function setGroupEnabled(_0xb76fea,_0x38fb59){const _0x312571=_0x397228;try{return await db[_0x312571(0x19c)]('INSERT\x20INT'+'O\x20'+TABLE_SETTINGS+(_0x312571(0x187)+_0x312571(0x123)+_0x312571(0x156)+',\x20?)\x0a\x20\x20\x20\x20\x20'+_0x312571(0x16e)+_0x312571(0x1b2)+'chat_jid)\x20'+_0x312571(0x177)+_0x312571(0x1c1)+_0x312571(0x181)+'ed.enabled'+';'),[_0xb76fea,_0x38fb59?-0x20f2*-0x1+0xfd1*-0x1+-0x1*0x1120:-0x1fe7+0x92*-0x20+-0x1*-0x3227]),!![];}catch(_0x251434){return error(_0x251434,'[antilink]'+'\x20setGroupE'+_0x312571(0x14c)+'led\x20for\x20'+_0xb76fea),![];}}function _0x44cc(){const _0x7de701=['e\x20failed','REMOVE_ON_','match','k:\x20','E\x20SET\x20whit','nabled\x20fai','etting\x20err','remoteJid','8EWPGqM','split','ailed\x20for\x20','clear','WARNING_ME',',\x20whitelis','\x20initializ','\x20VALUES\x20(?','{warnings}','works\x20on\x20d','DELETE_RET','n|off|stat','cluded.whi','t\x20resolve\x20','\x20WHERE\x20key','r\x20\x27','value','index','LOG_DELETE','forEach','parse','\x20getGroupS','_jid\x27','{user}','maining\x20wa','status','imageMessa',']\x27\x0a\x20\x20\x20\x20\x20\x20\x20','\x20WHERE\x20cha','ata','antilinkwl','\x20\x20\x20\x20\x20\x20\x20\x20ON','led:\x20','12970ACCmXp','SEND_WARNI','rnings:\x20{w','🔗\x20{user},\x20','43842aIbQov','MAX_WARNS','615028NfEpMD','DO\x20UPDATE\x20','T(chat_jid','stringify','xtMessage','caption','includes','map','🔗\x20PM\x20Usage','\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','nections.\x20','d\x20=\x20exclud','\x20Failed\x20to','telist;','\x20\x20\x20\x20\x20);\x0a\x20\x20','BATCH_DELA','lete_prefs','\x20(chat_jid','\x20Database\x20','catch','slice','has','us>','arnings}',')\x20DO\x20UPDAT','ue\x20FROM\x20de','\x20\x20\x20\x20\x20white','🔗\x20Invalid\x20','participan','d.\x20Use:\x20.a','some','D_LINKS','findings','replace','\x20=\x20\x27target','MAX','11363UpOcTX','toLowerCas','run','\x20\x20\x20CREATE\x20','```','any\x20target','\x20processCh','❌\x20OFF',':\x20\x22','set','bled,\x20whit','jid','count','all','XT\x20PRIMARY','tatus.','\x20setGroupW','36LlLWSZ','\x20for\x20','OT\x20EXISTS\x20','\x20(\x0a\x20\x20\x20\x20\x20\x20\x20','exec','enabled','trim','\x20CONFLICT(','normalizeT','subcommand','k\x20<on|off|','groupMetad','🔗\x20Could\x20no','efault\x20con','delete','3.4.0','🔗\x20*Origina','TABLE\x20IF\x20N','🔗\x20Antilink','3306444ePGYAN','\x20/setdefau','d|all>','SET\x20enable','RY_COUNT','text','\x20KEY,\x0a\x20\x20\x20\x20','4183371aMMvQG','sock','2946355PULkYc','\x20subcomman','k\x20Status*\x0a','isCommand','Y_MS','not\x20allowe','INTEGER\x20DE','ANTILINK','list\x20TEXT\x20','ENABLED','1434876zUQRsr','igure\x20one.','INSERT\x20INT','👤\x20*User:*\x20','whitelist','ror:\x20','\x20\x20\x20\x20\x20\x20\x20\x20\x20c','schema\x20ens','^/?','\x20cleaned\x20u','antilink','hitelist\x20f','hat_jid\x20TE','\x20\x20enabled\x20','l\x20Message:','mand\x20only\x20','\x20groups\x20fo','(?,\x20?)\x0a\x20\x20\x20','cipantsUpd','sendMessag','message',',\x20enabled)','SSAGE','max','groupParti','[antilink]','\x20group(s).','push','ON\x20CONFLIC','key','ids','ate','eation\x20fai','isArray','Unknown\x20Gr',':\x20.antilin','d\x20here.\x20Re','DEFAULT\x20\x27[','requires\x20a','✅\x20ON','ntilink\x20<o','7sYbWxv','🚫\x20*Antilin','url','off','\x20increment','hRetry\x20fai','endsWith','conversati','get','\x20\x20\x20\x20\x20\x20','length','links\x20are\x20','fromMe','*\x0a\x0a','elist\x20FROM','oup'];_0x44cc=function(){return _0x7de701;};return _0x44cc();}async function setGroupWhitelist(_0x3b2077,_0x1449bb){const _0x274e0b=_0x397228;try{const _0x511e84=Array['from'](new Set((_0x1449bb||[])[_0x274e0b(0x17d)](String)['filter'](Boolean)));return await db['run'](_0x274e0b(0x110)+'O\x20'+TABLE_SETTINGS+('\x20(chat_jid'+_0x274e0b(0x154)+'t)\x20VALUES\x20'+_0x274e0b(0x11f)+'\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'+_0x274e0b(0x12a)+_0x274e0b(0x178)+_0x274e0b(0x18e)+_0x274e0b(0x14b)+'elist\x20=\x20ex'+_0x274e0b(0x15b)+_0x274e0b(0x183)),[_0x3b2077,JSON[_0x274e0b(0x179)](_0x511e84)]),!![];}catch(_0x344b02){return error(_0x344b02,'[antilink]'+_0x274e0b(0x1aa)+_0x274e0b(0x119)+_0x274e0b(0x151)+_0x3b2077),![];}}function refreshConfig(){const _0x542386=_0x397228,_0x18fe0d=getConfig()||{};config={'MAX_WARNS':0x3,'REMOVE_ON_MAX':!![],'SEND_WARNING':!![],'WARNING_MESSAGE':_0x542386(0x173)+_0x542386(0x142)+_0x542386(0x1cc)+_0x542386(0x132)+_0x542386(0x167)+_0x542386(0x172)+_0x542386(0x18d),'VALIDATION_TIMEOUT_MS':0xfa0,'LOG_DELETED_LINKS':!![],'BATCH_SIZE':0x5,'BATCH_DELAY_MS':0x320,'GLOBAL_CONCURRENCY':0x2,'DELETE_RETRY_COUNT':0x2,..._0x18fe0d[_0x542386(0x1ce)]||{}};}function setupApi(_0x16b8e4){botRef=_0x16b8e4;}function extractTextFromMessage(_0x428fb4){const _0x22bd75=_0x397228;if(!_0x428fb4||!_0x428fb4[_0x22bd75(0x122)])return'';const _0x269d99=_0x428fb4[_0x22bd75(0x122)];return _0x269d99[_0x22bd75(0x13e)+'on']||_0x269d99['extendedTe'+_0x22bd75(0x17a)]?.[_0x22bd75(0x1c3)]||_0x269d99[_0x22bd75(0x169)+'ge']?.[_0x22bd75(0x17b)]||_0x269d99['videoMessa'+'ge']?.['caption']||'';}async function messageContainsLink(_0x4fdd0e){const _0x3a0e6a=_0x397228,_0x4542a8=extractTextFromMessage(_0x4fdd0e);if(!_0x4542a8)return![];const _0x21c443=linkify[_0x3a0e6a(0x149)](_0x4542a8);if(!_0x21c443)return![];for(const _0x232f64 of _0x21c443){try{const _0x1c1c71=new URL(_0x232f64[_0x3a0e6a(0x139)]);return await _0x2a2576(_0x1c1c71['hostname']),!![];}catch(_0x3bc97b){continue;}}return![];}function sleep(_0x24a6f6){return new Promise(_0x1ba12e=>setTimeout(_0x1ba12e,_0x24a6f6));}async function deleteWithRetry(_0xae4fc){const _0x530df2=_0x397228,_0x7c711d=Math['max'](0x2674+-0x139+-0x253a,config[_0x530df2(0x159)+_0x530df2(0x1c2)]||0x196e*0x1+0x22e4+-0x3c51),_0x3d3990=_0xae4fc[_0x530df2(0x12b)]?.['remoteJid'];if(!_0x3d3990)return![];for(let _0x3a80bd=-0x269f*-0x1+0xc2*0x1f+0x4*-0xf87;_0x3a80bd<=_0x7c711d;_0x3a80bd++){try{const _0x194d8e=botRef?.[_0x530df2(0x1c6)]||botRef;return await _0x194d8e[_0x530df2(0x121)+'e'](_0x3d3990,{'delete':_0xae4fc['key']}),!![];}catch(_0x3244a6){if(_0x3a80bd<_0x7c711d){await sleep((-0x1d84+0x5f9+0x191b)*_0x3a80bd);continue;}return warn('[antilink]'+'\x20deleteWit'+_0x530df2(0x13c)+_0x530df2(0x16f)+(_0x3244a6?.['message']||_0x3244a6)),![];}}return![];}async function getLogTargetJid(){const _0x247a17=_0x397228;try{const _0x4ca253=await db[_0x247a17(0x13f)]('SELECT\x20val'+_0x247a17(0x18f)+_0x247a17(0x186)+_0x247a17(0x15d)+_0x247a17(0x198)+_0x247a17(0x165));return _0x4ca253?.[_0x247a17(0x15f)]||getBotJid();}catch(_0x2bbaa4){return getBotJid();}}async function forwardDeletedLink(_0x287bc6){const _0x206e9d=_0x397228;if(!config[_0x206e9d(0x161)+_0x206e9d(0x195)])return;try{const _0x5a10a2=await getLogTargetJid();if(!_0x5a10a2)return;const _0x4ae781=_0x287bc6[_0x206e9d(0x12b)]?.['participan'+'t']||_0x287bc6['key']?.[_0x206e9d(0x14e)]||'Unknown',_0xaca923=_0x287bc6[_0x206e9d(0x12b)]?.['remoteJid'],_0x123759=extractTextFromMessage(_0x287bc6);let _0x23c372='PM';try{if(_0xaca923[_0x206e9d(0x13d)]('@g.us')){const _0x1030b3=await(botRef?.[_0x206e9d(0x1c6)]||botRef)[_0x206e9d(0x1b6)+_0x206e9d(0x16c)](_0xaca923);_0x23c372=_0x1030b3['subject'];}}catch(_0x5c2ad5){_0x23c372=_0x206e9d(0x130)+_0x206e9d(0x146);}const _0x3c33c5=_0x206e9d(0x138)+'k\x20Deletion'+_0x206e9d(0x144)+(_0x206e9d(0x111)+'@'+_0x4ae781[_0x206e9d(0x150)]('@')[0x95*0x32+-0x16a2+-0x2*0x33c]+'\x0a')+('💬\x20*Chat:*\x20'+_0x23c372+'\x20('+_0xaca923+')\x0a')+(_0x206e9d(0x1bb)+_0x206e9d(0x11c)+'*\x0a```'+_0x123759+_0x206e9d(0x19e));await(botRef?.[_0x206e9d(0x1c6)]||botRef)['sendMessag'+'e'](_0x5a10a2,{'text':_0x3c33c5,'mentions':[_0x4ae781]});}catch(_0x1c4473){warn(_0x206e9d(0x127)+_0x206e9d(0x182)+'\x20forward\x20d'+'eleted\x20lin'+_0x206e9d(0x14a)+_0x1c4473[_0x206e9d(0x122)]);}}function userKey(_0x53892a,_0x534e38){return _0x53892a+'::'+_0x534e38;}async function incrementWarningAndMaybeRemove(_0x35fd56){const _0x430000=_0x397228;try{const _0x368793=_0x35fd56[_0x430000(0x12b)]?.['remoteJid'],_0x5dfd90=_0x35fd56[_0x430000(0x12b)]?.['participan'+'t']||_0x35fd56['key']?.[_0x430000(0x14e)]||'';if(!_0x368793||!_0x5dfd90)return{'count':0x0,'removed':![]};const _0x4e8831=userKey(_0x368793,_0x5dfd90),_0x40e0ef=perUserWarnings[_0x430000(0x13f)](_0x4e8831)||{'count':0x0};_0x40e0ef['count']++,perUserWarnings[_0x430000(0x1a3)](_0x4e8831,_0x40e0ef);if(config[_0x430000(0x148)+_0x430000(0x199)]&&_0x40e0ef[_0x430000(0x1a6)]>=config[_0x430000(0x175)]){const _0x1f9484=botRef?.[_0x430000(0x1c6)]||botRef;return await _0x1f9484[_0x430000(0x126)+_0x430000(0x120)+_0x430000(0x12d)](_0x368793,[_0x5dfd90],'remove'),perUserWarnings[_0x430000(0x1b9)](_0x4e8831),{'count':_0x40e0ef['count'],'removed':!![]};}return{'count':_0x40e0ef['count'],'removed':![]};}catch(_0x199211){return warn(_0x430000(0x127)+_0x430000(0x13b)+'Warning\x20er'+_0x430000(0x113)+(_0x199211?.[_0x430000(0x122)]||_0x199211)),{'count':0x0,'removed':![]};}}async function sendWarning(_0x2f889c,_0x26c56e){const _0xab5d2e=_0x397228;if(!config[_0xab5d2e(0x171)+'NG'])return;try{const _0x324fcc=_0x2f889c[_0xab5d2e(0x12b)]?.['participan'+'t']||_0x2f889c[_0xab5d2e(0x12b)]?.[_0xab5d2e(0x14e)]||'',_0x434b7e=Math[_0xab5d2e(0x125)](-0x15*-0x15b+0x3*0x83f+-0x3534,config[_0xab5d2e(0x175)]-_0x26c56e),_0x3e8e38=config[_0xab5d2e(0x153)+_0xab5d2e(0x124)][_0xab5d2e(0x197)](_0xab5d2e(0x166),'@'+_0x324fcc[_0xab5d2e(0x150)]('@')[0x2351+0x4*-0x77d+-0x55d])[_0xab5d2e(0x197)](_0xab5d2e(0x157),String(_0x434b7e)),_0x356caa=_0x2f889c['key'][_0xab5d2e(0x14e)],_0x57c8d2=botRef?.[_0xab5d2e(0x1c6)]||botRef;await _0x57c8d2[_0xab5d2e(0x121)+'e'](_0x356caa,{'text':_0x3e8e38,'mentions':[_0x324fcc]});}catch(_0x56863c){warn('[antilink]'+'\x20sendWarni'+'ng\x20failed:'+'\x20'+(_0x56863c?.[_0xab5d2e(0x122)]||_0x56863c));}}function enqueueDeletion(_0x3e3bc7){const _0x100df1=_0x397228,_0x3955e9=_0x3e3bc7[_0x100df1(0x12b)]?.['remoteJid'];if(!_0x3955e9)return;if(!perChatQueue['has'](_0x3955e9))perChatQueue[_0x100df1(0x1a3)](_0x3955e9,[]);perChatQueue[_0x100df1(0x13f)](_0x3955e9)[_0x100df1(0x129)](_0x3e3bc7);if(!perChatProcessing[_0x100df1(0x13f)](_0x3955e9))tryStartProcessingForChat(_0x3955e9);}function tryStartProcessingForChat(_0x17acbf){const _0x3c6d5=_0x397228;if(perChatProcessing[_0x3c6d5(0x13f)](_0x17acbf)||shuttingDown)return;if(activeChats>=(config['GLOBAL_CON'+'CURRENCY']||-0x259e+-0xa56+-0x1*-0x2ff5)){setTimeout(()=>tryStartProcessingForChat(_0x17acbf),-0x11a5+0xd4*-0x18+-0x1*-0x261b);return;}activeChats++,perChatProcessing[_0x3c6d5(0x1a3)](_0x17acbf,!![]),((async()=>{const _0x4957b2=_0x3c6d5;try{await processChatQueue(_0x17acbf);}catch(_0x4c1710){warn('[antilink]'+_0x4957b2(0x1a0)+'atQueue\x20er'+'ror\x20for\x20'+_0x17acbf+':\x20'+(_0x4c1710?.[_0x4957b2(0x122)]||_0x4c1710));}finally{perChatProcessing['set'](_0x17acbf,![]),activeChats--;if(perChatQueue['get'](_0x17acbf)?.[_0x4957b2(0x141)])setImmediate(()=>tryStartProcessingForChat(_0x17acbf));}})());}async function processChatQueue(_0x58e7a3){const _0x4127d9=_0x397228;while(perChatQueue['get'](_0x58e7a3)?.[_0x4127d9(0x141)]>0x1084+0x1*-0x227d+-0x6b*-0x2b&&!shuttingDown){const _0x3bedf3=perChatQueue[_0x4127d9(0x13f)](_0x58e7a3)['splice'](0x8f3+-0x1*-0x2441+0x2*-0x169a,config['BATCH_SIZE']||-0xcf5+0xc83+-0x5*-0x17);for(const _0x31957f of _0x3bedf3){const _0x57e68f=await deleteWithRetry(_0x31957f);if(_0x57e68f){await forwardDeletedLink(_0x31957f);const {count:_0x33ce2f,removed:_0x43cc83}=await incrementWarningAndMaybeRemove(_0x31957f);!_0x43cc83&&await sendWarning(_0x31957f,_0x33ce2f);}}perChatQueue['get'](_0x58e7a3)?.[_0x4127d9(0x141)]>-0x176f*0x1+-0x4*0x43f+-0xd79*-0x3&&await sleep(config[_0x4127d9(0x185)+_0x4127d9(0x1cb)]||-0x11*0xa7+-0x1f3f+0x2c4a);}}function getMessageKey(_0x399df1){const _0x25f9de=_0x397228;if(!_0x399df1?.[_0x25f9de(0x12b)]?.['id'])return null;return _0x399df1[_0x25f9de(0x12b)][_0x25f9de(0x14e)]+':'+_0x399df1['key']['id'];}function splitRestForGp(_0x2dfa95){const _0x2059b5=_0x397228;if(!_0x2dfa95)return{'left':'','gp':null};const _0x3c8d5a=_0x2dfa95['match'](/\bgp[:\s]+(.+)$/i);if(_0x3c8d5a)return{'left':_0x2dfa95[_0x2059b5(0x18a)](0x2112+0xb0a+-0x2c1c*0x1,_0x3c8d5a[_0x2059b5(0x160)])['trim'](),'gp':_0x3c8d5a[-0xda2+-0x7*-0x237+-0x1de][_0x2059b5(0x1b1)]()};return{'left':_0x2dfa95[_0x2059b5(0x1b1)](),'gp':null};}async function resolveTargetsForGroupAdmin(_0x2b9494){const _0xd6ce89=_0x397228,_0x161807=await getDefault(_0x2b9494)[_0xd6ce89(0x189)](()=>null);if(!_0x161807)return[];const _0x516676=Array['isArray'](_0x161807)?_0x161807:[_0x161807];let _0x472b84=[];for(const _0x37e6a3 of _0x516676){const _0x456336=await getConnection(_0x37e6a3)[_0xd6ce89(0x189)](()=>null);if(Array[_0xd6ce89(0x12f)](_0x456336))_0x472b84[_0xd6ce89(0x129)](..._0x456336);else{if(_0x456336)_0x472b84[_0xd6ce89(0x129)](String(_0x456336));}}return Array['from'](new Set(_0x472b84));}async function resolveTargetsForSudo(_0x21d4ad){const _0x3083cf=_0x397228;if(!_0x21d4ad)return[];if(_0x21d4ad[_0x3083cf(0x19b)+'e']()===_0x3083cf(0x1a7))return await _0x1aad7d['getUniqueJ'+_0x3083cf(0x12c)]();const _0x2ccc39=await _0x1aad7d['resolveNam'+'e'](_0x21d4ad);if(_0x2ccc39)return[_0x2ccc39];if(_0x21d4ad[_0x3083cf(0x17c)]('@'))return[_0x1aad7d[_0x3083cf(0x1b3)+'oUserJid'](_0x21d4ad)];return[];}async function findStoredMatchFromFindings(_0x478cf9=[]){const _0x84c622=_0x397228;try{const _0x578986=await listSudo();if(!_0x578986?.[_0x84c622(0x141)])return null;const _0x4a5e94=new Set(_0x578986[_0x84c622(0x17d)](String));for(const _0x2d85fd of _0x478cf9||[]){if(_0x2d85fd?.['jid']&&_0x4a5e94['has'](normalizeToJid(_0x2d85fd['jid'])))return normalizeToJid(_0x2d85fd[_0x84c622(0x1a5)]);}return null;}catch(_0x2fba93){return null;}}export async function initialize(_0x2693d5){const _0x47f852=_0x397228;try{setupApi(_0x2693d5),await ensureSchema(),refreshConfig(),shuttingDown=![],info(_0x47f852(0x127)+'\x20module\x20in'+'itialized.');}catch(_0x1de135){error(_0x1de135,'[antilink]'+_0x47f852(0x155)+_0x47f852(0x147));throw _0x1de135;}}export async function onMessage(_0x4be361){const _0x74cdbc=_0x397228;if(!_0x4be361?.[_0x74cdbc(0x12b)]?.[_0x74cdbc(0x14e)]||!_0x4be361[_0x74cdbc(0x122)]||shuttingDown)return;const _0x413c10=_0x4be361['key'][_0x74cdbc(0x14e)],_0x504819=_0x413c10[_0x74cdbc(0x13d)]('@g.us'),_0x4d685d=_0x4be361[_0x74cdbc(0x12b)][_0x74cdbc(0x192)+'t']||_0x4be361[_0x74cdbc(0x12b)][_0x74cdbc(0x14e)],_0x791e5=_0x4d685d['split']('@')[0x803+0x2*0xb92+0xb*-0x2d5],_0x58c322=extractTextFromMessage(_0x4be361),_0x1aff57=(_0x4be361[_0x74cdbc(0x1c3)]||_0x58c322)[_0x74cdbc(0x1b1)](),_0x4fb338=_0x4be361[_0x74cdbc(0x1ca)]&&_0x1aff57?_0x1aff57[_0x74cdbc(0x150)](/\s+/)[0xef4+0x89b*0x3+-0x28c5][_0x74cdbc(0x19b)+'e']()[_0x74cdbc(0x197)]('/',''):null;if(_0x4be361[_0x74cdbc(0x1ca)]&&commands[_0x74cdbc(0x17c)](_0x4fb338)){let _0x86cabb=_0x413c10,_0xa0eddf=![],_0x1666db=![];if(_0x504819){if(await isadmin(botRef,_0x4be361))_0xa0eddf=!![];}else{if(_0x4be361[_0x74cdbc(0x12b)][_0x74cdbc(0x143)])_0xa0eddf=!![],_0x1666db=!![],_0x86cabb=getBotJid()||_0x413c10;else{if(await isSudo(botRef,_0x4be361)){_0xa0eddf=!![],_0x1666db=!![];const _0x1a650d=await userJidFromCtx(_0x4be361)||{'findings':[]};_0x86cabb=await findStoredMatchFromFindings(_0x1a650d[_0x74cdbc(0x196)])||_0x413c10;}}}if(!_0xa0eddf)return;if(_0x4fb338==='antilink'){const _0x282081=_0x1aff57[_0x74cdbc(0x197)](new RegExp(_0x74cdbc(0x116)+_0x4fb338+'\x5cb','i'),'')['trim'](),{left:_0x59d2c4,gp:_0x2b3329}=splitRestForGp(_0x282081),_0x5640fe=_0x59d2c4[_0x74cdbc(0x150)](/[, ]+/)[-0xa9e*-0x1+0x470+-0x1*0xf0e]?.[_0x74cdbc(0x19b)+'e']();if(!_0x5640fe)return(botRef?.[_0x74cdbc(0x1c6)]||botRef)[_0x74cdbc(0x121)+'e'](_0x86cabb,{'text':'🔗\x20Command\x20'+_0x74cdbc(0x134)+_0x74cdbc(0x1c8)+_0x74cdbc(0x193)+_0x74cdbc(0x136)+_0x74cdbc(0x15a)+_0x74cdbc(0x18c)});if(!['on',_0x74cdbc(0x13a),_0x74cdbc(0x168)][_0x74cdbc(0x17c)](_0x5640fe))return(botRef?.[_0x74cdbc(0x1c6)]||botRef)[_0x74cdbc(0x121)+'e'](_0x86cabb,{'text':_0x74cdbc(0x191)+_0x74cdbc(0x1b4)+_0x74cdbc(0x1a2)+_0x5640fe+('\x22.\x20Use\x20on,'+'\x20off,\x20or\x20s'+_0x74cdbc(0x1a9))});let _0x140cad=[];if(_0x1666db){if(!_0x2b3329)return(botRef?.[_0x74cdbc(0x1c6)]||botRef)[_0x74cdbc(0x121)+'e'](_0x86cabb,{'text':_0x74cdbc(0x17e)+_0x74cdbc(0x131)+_0x74cdbc(0x1b5)+'status>\x20gp'+':<alias|ji'+_0x74cdbc(0x1c0)});_0x140cad=await resolveTargetsForSudo(_0x2b3329);if(!_0x140cad['length'])return(botRef?.['sock']||botRef)['sendMessag'+'e'](_0x86cabb,{'text':_0x74cdbc(0x1b7)+_0x74cdbc(0x15c)+_0x74cdbc(0x19f)+_0x74cdbc(0x11e)+_0x74cdbc(0x15e)+_0x2b3329+'\x27.'});}else{_0x140cad=await resolveTargetsForGroupAdmin(_0x791e5);if(!_0x140cad[_0x74cdbc(0x141)])return(botRef?.[_0x74cdbc(0x1c6)]||botRef)[_0x74cdbc(0x121)+'e'](_0x86cabb,{'text':'🔗\x20This\x20com'+_0x74cdbc(0x11d)+_0x74cdbc(0x158)+_0x74cdbc(0x1b8)+_0x74cdbc(0x180)+'Please\x20use'+_0x74cdbc(0x1bf)+'lt\x20to\x20conf'+_0x74cdbc(0x10f)});}if(_0x5640fe==='on'||_0x5640fe===_0x74cdbc(0x13a)){const _0x2cb9f2=_0x5640fe==='on';let _0x1d1523=-0x13a0+0x133*0x5+0xda1;for(const _0x482843 of _0x140cad){await setGroupEnabled(_0x482843,_0x2cb9f2)&&_0x1d1523++;}await(botRef?.['sock']||botRef)[_0x74cdbc(0x121)+'e'](_0x86cabb,{'text':_0x74cdbc(0x1bd)+'\x20'+(_0x2cb9f2?_0x74cdbc(0x1d0):'DISABLED')+_0x74cdbc(0x1ac)+_0x1d1523+'/'+_0x140cad[_0x74cdbc(0x141)]+_0x74cdbc(0x128)});return;}if(_0x5640fe==='status'){let _0xc42047='🔗\x20*Antilin'+_0x74cdbc(0x1c9)+'\x0a';for(const _0x2838d7 of _0x140cad){const {enabled:_0x23479d}=await getGroupSetting(_0x2838d7);_0xc42047+=_0x2838d7+':\x20'+(_0x23479d?_0x74cdbc(0x135):_0x74cdbc(0x1a1))+'\x0a';}await(botRef?.['sock']||botRef)[_0x74cdbc(0x121)+'e'](_0x86cabb,{'text':_0xc42047});return;}}return;}if(_0x504819){const _0x1d9162=await getGroupSetting(_0x413c10);if(!_0x1d9162[_0x74cdbc(0x1b0)]||_0x4be361[_0x74cdbc(0x12b)]['fromMe']||await isadmin(botRef,_0x4be361))return;const _0x3e9712=_0x1d9162[_0x74cdbc(0x112)]['includes'](_0x4d685d);if(_0x3e9712)return;const _0x567e1d=extractTextFromMessage(_0x4be361),_0x3155f0=_0x567e1d&&_0x1d9162['whitelist'][_0x74cdbc(0x194)](_0x2c1b55=>_0x567e1d[_0x74cdbc(0x17c)](_0x2c1b55));if(_0x3155f0)return;if(await messageContainsLink(_0x4be361)){const _0xf1497b=getMessageKey(_0x4be361);if(processedMessageIds[_0x74cdbc(0x18b)](_0xf1497b))return;processedMessageIds[_0x74cdbc(0x1a3)](_0xf1497b,setTimeout(()=>processedMessageIds[_0x74cdbc(0x1b9)](_0xf1497b),-0x78b*0x3+0x15b*0x13+0x1068)),enqueueDeletion(_0x4be361);}}}export async function cleanup(){const _0x21b101=_0x397228;shuttingDown=!![],perChatQueue[_0x21b101(0x152)](),perChatProcessing[_0x21b101(0x152)](),processedMessageIds[_0x21b101(0x162)](_0x39e3f0=>clearTimeout(_0x39e3f0)),processedMessageIds[_0x21b101(0x152)](),perUserWarnings[_0x21b101(0x152)](),activeChats=-0xac+-0x33b*-0x2+-0x1*0x5ca,info(_0x21b101(0x127)+_0x21b101(0x117)+'p.');}export default{'name':name,'version':version,'priority':priority,'commands':commands,'initialize':initialize,'onMessage':onMessage,'cleanup':cleanup};
+/**
+ * antilink.js - Advanced, Group-Specific Antilink System
+ *
+ * Version: 3.4.1 (Patched)
+ * Change Log:
+ * - Refactored enforcement logic to correctly prioritize admin checks, preventing false positives during network instability.
+ * - Corrected whitelist logic to properly distinguish between user JIDs and domain names, preventing incorrect matches.
+ * - Added a "🔗" emoji prefix to all command responses to prevent the bot's own messages from being reprocessed as commands.
+ * - FINAL FIX: Corrected a logical flow bug that caused a success and an error message to be sent for the same command.
+ * - Parsing is now hardened using the same regex method from lock.js to be more reliable.
+ * - Added explicit `return` statements after a command is successfully processed to prevent any further execution.
+ */
+
+import { info, warn, error } from '../utils/logger.js';
+import { db } from '../utils/database.js';
+import { getConfig } from '../utils/config.js';
+import { isadmin } from '../utils/isadmin.js';
+import { getDefault, getConnection } from '../utils/connection.js';
+import * as groupsUtil from '../utils/groups.js';
+import { isSudo, userJidFromCtx, listSudo, normalizeToJid } from '../utils/sudo.js';
+import { getBotJid } from '../utils/bot-state.js';
+import LinkifyIt from 'linkify-it';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const tlds = require('tlds');
+import axios from 'axios';
+import { resolve as resolveDns } from 'dns/promises';
+
+export const name = 'antilink';
+export const version = '3.4.1';
+export const priority = 100;
+export const commands = ['antilink', 'antilinkwl'];
+
+const TABLE_SETTINGS = 'antilink_settings';
+
+let botRef = null;
+let shuttingDown = false;
+let config = {};
+
+const linkify = LinkifyIt();
+linkify.tlds(tlds);
+
+const perChatQueue = new Map();
+const perChatProcessing = new Map();
+let activeChats = 0;
+const processedMessageIds = new Map();
+const perUserWarnings = new Map();
+
+// --- Database Schema and Helpers ---
+async function ensureSchema() {
+    try {
+        await db.exec(`
+            CREATE TABLE IF NOT EXISTS ${TABLE_SETTINGS} (
+                chat_jid TEXT PRIMARY KEY,
+                enabled INTEGER DEFAULT 0,
+                whitelist TEXT DEFAULT '[]'
+            );
+        `);
+        info('[antilink] Database schema ensured.');
+    } catch (e) {
+        error(e, '[antilink] schema creation failed');
+        throw e;
+    }
+}
+
+async function getGroupSetting(chatJid) {
+    try {
+        const row = await db.get(`SELECT enabled, whitelist FROM ${TABLE_SETTINGS} WHERE chat_jid = ?`, [chatJid]);
+        return {
+            enabled: !!row?.enabled,
+            whitelist: row ? JSON.parse(row.whitelist || '[]') : []
+        };
+    } catch (e) {
+        warn(`[antilink] getGroupSetting error for ${chatJid}: ${e?.message || e}`);
+        return { enabled: false, whitelist: [] };
+    }
+}
+
+async function setGroupEnabled(chatJid, isEnabled) {
+    try {
+        await db.run(
+            `INSERT INTO ${TABLE_SETTINGS} (chat_jid, enabled) VALUES (?, ?)
+             ON CONFLICT(chat_jid) DO UPDATE SET enabled = excluded.enabled;`,
+            [chatJid, isEnabled ? 1 : 0]
+        );
+        return true;
+    } catch (e) {
+        error(e, `[antilink] setGroupEnabled failed for ${chatJid}`);
+        return false;
+    }
+}
+
+async function setGroupWhitelist(chatJid, whitelist) {
+    try {
+        const uniqueWl = Array.from(new Set((whitelist || []).map(String).filter(Boolean)));
+        await db.run(
+            `INSERT INTO ${TABLE_SETTINGS} (chat_jid, whitelist) VALUES (?, ?)
+             ON CONFLICT(chat_jid) DO UPDATE SET whitelist = excluded.whitelist;`,
+            [chatJid, JSON.stringify(uniqueWl)]
+        );
+        return true;
+    } catch (e) {
+        error(e, `[antilink] setGroupWhitelist failed for ${chatJid}`);
+        return false;
+    }
+}
+
+// --- Config and Bot API Setup ---
+function refreshConfig() {
+    const fullConfig = getConfig() || {};
+    config = {
+        MAX_WARNS: 3,
+        REMOVE_ON_MAX: true,
+        SEND_WARNING: true,
+        WARNING_MESSAGE: '🔗 {user}, links are not allowed here. Remaining warnings: {warnings}',
+        VALIDATION_TIMEOUT_MS: 4000,
+        LOG_DELETED_LINKS: true,
+        BATCH_SIZE: 5,
+        BATCH_DELAY_MS: 800,
+        GLOBAL_CONCURRENCY: 2,
+        DELETE_RETRY_COUNT: 2,
+        ...(fullConfig.ANTILINK || {})
+    };
+}
+
+function setupApi(bot) {
+    botRef = bot;
+}
+
+// --- Link Validation and Core Logic ---
+function extractTextFromMessage(msg) {
+    if (!msg || !msg.message) return '';
+    const m = msg.message;
+    return m.conversation
+        || m.extendedTextMessage?.text
+        || m.imageMessage?.caption
+        || m.videoMessage?.caption
+        || '';
+}
+
+async function messageContainsLink(msg) {
+    const text = extractTextFromMessage(msg);
+    if (!text) return false;
+    const matches = linkify.match(text);
+    if (!matches) return false;
+
+    for (const match of matches) {
+        try {
+            const url = new URL(match.url);
+            await resolveDns(url.hostname);
+            return true;
+        } catch (e) {
+            continue;
+        }
+    }
+    return false;
+}
+
+
+// --- Deletion Queue and Warning Management ---
+
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+async function deleteWithRetry(ctx) {
+    const attempts = Math.max(1, config.DELETE_RETRY_COUNT || 1);
+    const jid = ctx.key?.remoteJid;
+    if (!jid) return false;
+    for (let i = 1; i <= attempts; i++) {
+        try {
+            const sock = botRef?.sock || botRef;
+            await sock.sendMessage(jid, { delete: ctx.key });
+            return true;
+        } catch (e) {
+            if (i < attempts) {
+                await sleep(400 * i);
+                continue;
+            }
+            warn(`[antilink] deleteWithRetry failed: ${e?.message || e}`);
+            return false;
+        }
+    }
+    return false;
+}
+
+async function getLogTargetJid() {
+    try {
+        const row = await db.get("SELECT value FROM delete_prefs WHERE key = 'target_jid'");
+        return row?.value || getBotJid();
+    } catch (e) {
+        return getBotJid();
+    }
+}
+
+
+async function forwardDeletedLink(ctx) {
+    if (!config.LOG_DELETED_LINKS) return;
+    try {
+        const targetJid = await getLogTargetJid();
+        if (!targetJid) return;
+
+        const sender = ctx.key?.participant || ctx.key?.remoteJid || 'Unknown';
+        const groupJid = ctx.key?.remoteJid;
+        const text = extractTextFromMessage(ctx);
+
+        let groupName = 'PM';
+        try {
+            if (groupJid.endsWith('@g.us')) {
+                const metadata = await (botRef?.sock || botRef).groupMetadata(groupJid);
+                groupName = metadata.subject;
+            }
+        } catch (e) {
+            groupName = 'Unknown Group';
+        }
+
+        const logMessage = `🚫 *Antilink Deletion*\n\n` +
+            `👤 *User:* @${sender.split('@')[0]}\n` +
+            `💬 *Chat:* ${groupName} (${groupJid})\n` +
+            `🔗 *Original Message:*\n\`\`\`${text}\`\`\``;
+
+        await (botRef?.sock || botRef).sendMessage(targetJid, {
+            text: logMessage,
+            mentions: [sender]
+        });
+    } catch (e) {
+        warn(`[antilink] Failed to forward deleted link: ${e.message}`);
+    }
+}
+
+
+function userKey(chatId, sender) { return `${chatId}::${sender}`; }
+
+async function incrementWarningAndMaybeRemove(ctx) {
+    try {
+        const chat = ctx.key?.remoteJid;
+        const sender = ctx.key?.participant || ctx.key?.remoteJid || '';
+        if (!chat || !sender) return { count: 0, removed: false };
+
+        const k = userKey(chat, sender);
+        const current = perUserWarnings.get(k) || { count: 0 };
+        current.count++;
+        perUserWarnings.set(k, current);
+
+        if (config.REMOVE_ON_MAX && current.count >= config.MAX_WARNS) {
+            const sock = botRef?.sock || botRef;
+            await sock.groupParticipantsUpdate(chat, [sender], 'remove');
+            perUserWarnings.delete(k);
+            return { count: current.count, removed: true };
+        }
+        return { count: current.count, removed: false };
+    } catch (e) {
+        warn(`[antilink] incrementWarning error: ${e?.message || e}`);
+        return { count: 0, removed: false };
+    }
+}
+
+async function sendWarning(ctx, count) {
+    if (!config.SEND_WARNING) return;
+    try {
+        const sender = ctx.key?.participant || ctx.key?.remoteJid || '';
+        const remaining = Math.max(0, config.MAX_WARNS - count);
+        const text = config.WARNING_MESSAGE
+            .replace('{user}', `@${sender.split('@')[0]}`)
+            .replace('{warnings}', String(remaining));
+
+        const jid = ctx.key.remoteJid;
+        const sock = botRef?.sock || botRef;
+        await sock.sendMessage(jid, { text, mentions: [sender] });
+    } catch (e) {
+        warn(`[antilink] sendWarning failed: ${e?.message || e}`);
+    }
+}
+
+
+function enqueueDeletion(ctx) {
+    const chatId = ctx.key?.remoteJid;
+    if (!chatId) return;
+    if (!perChatQueue.has(chatId)) perChatQueue.set(chatId, []);
+    perChatQueue.get(chatId).push(ctx);
+    if (!perChatProcessing.get(chatId)) tryStartProcessingForChat(chatId);
+}
+
+function tryStartProcessingForChat(chatId) {
+    if (perChatProcessing.get(chatId) || shuttingDown) return;
+    if (activeChats >= (config.GLOBAL_CONCURRENCY || 1)) {
+        setTimeout(() => tryStartProcessingForChat(chatId), 150);
+        return;
+    }
+    activeChats++;
+    perChatProcessing.set(chatId, true);
+    (async () => {
+        try {
+            await processChatQueue(chatId);
+        } catch (e) {
+            warn(`[antilink] processChatQueue error for ${chatId}: ${e?.message || e}`);
+        } finally {
+            perChatProcessing.set(chatId, false);
+            activeChats--;
+            if (perChatQueue.get(chatId)?.length) setImmediate(() => tryStartProcessingForChat(chatId));
+        }
+    })();
+}
+
+async function processChatQueue(chatId) {
+    while (perChatQueue.get(chatId)?.length > 0 && !shuttingDown) {
+        const batch = perChatQueue.get(chatId).splice(0, config.BATCH_SIZE || 1);
+        for (const ctx of batch) {
+            const deleted = await deleteWithRetry(ctx);
+            if (deleted) {
+                await forwardDeletedLink(ctx);
+                const { count, removed } = await incrementWarningAndMaybeRemove(ctx);
+                if (!removed) {
+                    await sendWarning(ctx, count);
+                }
+            }
+        }
+        if (perChatQueue.get(chatId)?.length > 0) {
+            await sleep(config.BATCH_DELAY_MS || 500);
+        }
+    }
+}
+
+
+function getMessageKey(ctx) {
+    if (!ctx?.key?.id) return null;
+    return `${ctx.key.remoteJid}:${ctx.key.id}`;
+}
+
+// --- Command Parsing and Handling ---
+
+function splitRestForGp(rest) {
+    if (!rest) return { left: '', gp: null };
+    const m = rest.match(/\bgp[:\s]+(.+)$/i);
+    if (m) {
+        return { left: rest.slice(0, m.index).trim(), gp: m[1].trim() };
+    }
+    return { left: rest.trim(), gp: null };
+}
+
+async function resolveTargetsForGroupAdmin(senderKey) {
+    const defNamesRaw = await getDefault(senderKey).catch(() => null);
+    if (!defNamesRaw) return [];
+    const defNames = Array.isArray(defNamesRaw) ? defNamesRaw : [defNamesRaw];
+    let defaultChatJids = [];
+    for (const dn of defNames) {
+        const j = await getConnection(dn).catch(() => null);
+        if (Array.isArray(j)) defaultChatJids.push(...j);
+        else if (j) defaultChatJids.push(String(j));
+    }
+    return Array.from(new Set(defaultChatJids));
+}
+
+async function resolveTargetsForSudo(gp) {
+    if (!gp) return [];
+    if (gp.toLowerCase() === 'all') {
+        return await groupsUtil.getUniqueJids();
+    }
+    const resolved = await groupsUtil.resolveName(gp);
+    if (resolved) return [resolved];
+    if (gp.includes('@')) return [groupsUtil.normalizeToUserJid(gp)];
+    return [];
+}
+
+
+async function findStoredMatchFromFindings(findings = []) {
+  try {
+    const stored = await listSudo();
+    if (!stored?.length) return null;
+    const storedSet = new Set(stored.map(String));
+    for (const f of findings || []) {
+      if (f?.jid && storedSet.has(normalizeToJid(f.jid))) return normalizeToJid(f.jid);
+    }
+    return null;
+  } catch (e) { return null; }
+}
+
+
+// --- Lifecycle and Message Handler ---
+
+export async function initialize(bot) {
+    try {
+        setupApi(bot);
+        await ensureSchema();
+        refreshConfig();
+        shuttingDown = false;
+        info('[antilink] module initialized.');
+    } catch (e) {
+        error(e, '[antilink] initialize failed');
+        throw e;
+    }
+}
+
+export async function onMessage(ctx) {
+    if (!ctx?.key?.remoteJid || !ctx.message || shuttingDown) return;
+
+    const remote = ctx.key.remoteJid;
+    const isGroup = remote.endsWith('@g.us');
+    const senderJid = ctx.key.participant || ctx.key.remoteJid;
+    const senderKey = senderJid.split('@')[0];
+    const rawText = extractTextFromMessage(ctx);
+    const cmdText = (ctx.text || rawText).trim();
+    const cmd = (ctx.isCommand && cmdText) ? cmdText.split(/\s+/)[0].toLowerCase().replace('/', '') : null;
+
+    // --- Command Handling ---
+    if (ctx.isCommand && commands.includes(cmd)) {
+        let finalDest = remote;
+        let isAuthorized = false;
+        let isSudoPM = false;
+
+        if (isGroup) {
+            if (await isadmin(botRef, ctx)) isAuthorized = true;
+        } else {
+            if (ctx.key.fromMe) {
+                isAuthorized = true;
+                isSudoPM = true;
+                finalDest = getBotJid() || remote;
+            } else if (await isSudo(botRef, ctx)) {
+                isAuthorized = true;
+                isSudoPM = true;
+                const extracted = await userJidFromCtx(ctx) || { findings: [] };
+                finalDest = await findStoredMatchFromFindings(extracted.findings) || remote;
+            }
+        }
+
+        if (!isAuthorized) return;
+        
+        if (cmd === 'antilink') {
+            const rest = cmdText.replace(new RegExp(`^/?${cmd}\\b`, 'i'), '').trim();
+            const { left, gp } = splitRestForGp(rest);
+            const mode = left.split(/[, ]+/)[0]?.toLowerCase();
+
+            if (!mode) {
+                return (botRef?.sock || botRef).sendMessage(finalDest, { text: '🔗 Command requires a subcommand. Use: .antilink <on|off|status>' });
+            }
+            if (!['on', 'off', 'status'].includes(mode)) {
+                return (botRef?.sock || botRef).sendMessage(finalDest, { text: `🔗 Invalid subcommand: "${mode}". Use on, off, or status.` });
+            }
+
+            let targets = [];
+            if (isSudoPM) {
+                if (!gp) {
+                    return (botRef?.sock || botRef).sendMessage(finalDest, { text: '🔗 PM Usage: .antilink <on|off|status> gp:<alias|jid|all>' });
+                }
+                targets = await resolveTargetsForSudo(gp);
+                 if (!targets.length) {
+                    return (botRef?.sock || botRef).sendMessage(finalDest, { text: `🔗 Could not resolve any target groups for '${gp}'.` });
+                }
+            } else { // Group Admin
+                targets = await resolveTargetsForGroupAdmin(senderKey);
+                if (!targets.length) {
+                    return (botRef?.sock || botRef).sendMessage(finalDest, { text: `🔗 This command only works on default connections. Please use /setdefault to configure one.` });
+                }
+            }
+
+            if (mode === 'on' || mode === 'off') {
+                const enable = mode === 'on';
+                let successCount = 0;
+                for (const chatJid of targets) {
+                    if (await setGroupEnabled(chatJid, enable)) {
+                        successCount++;
+                    }
+                }
+                await (botRef?.sock || botRef).sendMessage(finalDest, { text: `🔗 Antilink ${enable ? 'ENABLED' : 'DISABLED'} for ${successCount}/${targets.length} group(s).` });
+                return; 
+            } 
+            
+            if (mode === 'status') {
+                let statusMsg = '🔗 *Antilink Status*\n\n';
+                for (const chatJid of targets) {
+                    const { enabled } = await getGroupSetting(chatJid);
+                    statusMsg += `${chatJid}: ${enabled ? '✅ ON' : '❌ OFF'}\n`;
+                }
+                await (botRef?.sock || botRef).sendMessage(finalDest, { text: statusMsg });
+                return;
+            }
+        }
+        return;
+    }
+
+    // --- Antilink Enforcement Logic ---
+    if (isGroup) {
+        const setting = await getGroupSetting(remote);
+
+        // 1. First, check if the module is even enabled for this group.
+        if (!setting.enabled) {
+            return;
+        }
+
+        // 2. Immediately ignore messages from the bot itself or from any group admin.
+        // This is the primary fix for your issue.
+        if (ctx.key.fromMe || await isadmin(botRef, ctx)) {
+            return;
+        }
+
+        // 3. Perform a smarter, combined whitelist check.
+        // This new logic correctly distinguishes between JIDs and domains.
+        const text = extractTextFromMessage(ctx);
+        let isWhitelisted = false;
+        for (const item of setting.whitelist) {
+            // Check if the whitelist item is a JID and matches the sender
+            if (item.includes('@') && item === senderJid) {
+                isWhitelisted = true;
+                break; // Found a match, no need to check further
+            }
+            // Check if the whitelist item is a domain and is present in the message text
+            if (!item.includes('@') && text.includes(item)) {
+                isWhitelisted = true;
+                break; // Found a match, no need to check further
+            }
+        }
+
+        if (isWhitelisted) {
+            return;
+        }
+
+        // 4. If all checks above have failed, then check for a link and take action.
+        if (await messageContainsLink(ctx)) {
+            const msgKey = getMessageKey(ctx);
+            if (processedMessageIds.has(msgKey)) return;
+            processedMessageIds.set(msgKey, setTimeout(() => processedMessageIds.delete(msgKey), 5000));
+            enqueueDeletion(ctx);
+        }
+    }
+}
+
+export async function cleanup() {
+    shuttingDown = true;
+    perChatQueue.clear();
+    perChatProcessing.clear();
+    processedMessageIds.forEach(timeout => clearTimeout(timeout));
+    processedMessageIds.clear();
+    perUserWarnings.clear();
+    activeChats = 0;
+    info('[antilink] cleaned up.');
+}
+
+export default { name, version, priority, commands, initialize, onMessage, cleanup };
