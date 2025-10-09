@@ -38,7 +38,7 @@ LOG_ROTATION_FREQUENCY: daily
 # LOG_ROTATION_SIZE: max file size before rotation, human-readable (e.g. "10M").
 # type: string
 # default: 10M
-LOG_ROTATION_SIZE: 2M
+LOG_ROTATION_SIZE: 1M
 
 # LOG_QUERIES: if true, enables verbose DB / query logging (app must opt-in).
 # type: boolean
@@ -104,8 +104,8 @@ HEALTH_CHECK_INTERVAL_MS: 60000000
 # memory thresholds in megabytes for warnings and critical action.
 # type: number (MB), min: 0
 # defaults: 50 (warn), 100 (critical)
-HIGH_MEMORY_USAGE_WARN_MB: 90
-CRITICAL_MEMORY_USAGE_MB: 70
+HIGH_MEMORY_USAGE_WARN_MB: 900
+CRITICAL_MEMORY_USAGE_MB: 700
 
 # KILL_ON_HIGH_MEMORY: if true, process exits when critical memory reached.
 # type: boolean
@@ -152,7 +152,7 @@ DB_FLUSH_INTERVAL: 5000
 # type: number (bytes)
 # min: 0
 # default: 524288000 (500 * 1024 * 1024)
-DB_CACHE_MAX_BYTES: 20971520
+DB_CACHE_MAX_BYTES: 209715200
 # DATABASE_URL: optional full DB URL (e.g., Postgres). Prefer env var for sensitive values.
 # type: string (url) | undefined
 # default: null
@@ -186,13 +186,13 @@ BAILEYS_PINO_LEVEL: error
 # type: number (ms)
 # min: 0
 # default: 60000
-CACHE_TTL_MS: 6000
+CACHE_TTL_MS: 6000000
 
 # CACHE_MAX_SIZE_BYTES: cache capacity in bytes.
 # type: number
 # min: 0
 # default: 20971520 (20 * 1024 * 1024)
-MEMORY_STORE_MAX_BYTES: 20971520
+MEMORY_STORE_MAX_BYTES: 209715200
 # MEMORY_STORE_MAX_BYTES: maximum memory allowed for in-memory store (bytes).
 # type: number
 # min: 0
@@ -231,7 +231,7 @@ AUTH_WAL_MAX_FILE_SIZE_KB: 1024
 # type: number
 # min: 100
 # default: 10000
-AUTH_WAL_MAX_LINES: 10000
+AUTH_WAL_MAX_LINES: 100000
 
 # AUTH_WAL_REWRITE_INTERVAL_MS: interval to rewrite WAL (ms).
 # type: number (ms)
@@ -258,8 +258,7 @@ OUTGOING_MAX_QUEUE: 2000
 # type: number
 # min: 0
 # default: 2
-SEND_RETRY_ATTEMPTS: 2
-
+SEND_RETRY_ATTEMPTS: 3
 # SEND_RETRY_BASE_MS: base backoff in ms for send retry (exponential backoff multiplies by attempt).
 # type: number
 # min: 0
@@ -309,24 +308,9 @@ CONTACT_CACHE_TTL_MS: 360000
 # type: number
 # min: 0
 # default: 1800000
-CHAT_CACHE_TTL_MS: 1800000
+CHAT_CACHE_TTL_MS: 18000000
 
-# DLQ_PATH: path for dead-letter queue storage
-# type: string
-# default: .dlq
-DLQ_PATH: .dlq
 
-# DLQ_MAX_SIZE_BYTES: size cap for DLQ (bytes)
-# type: number
-# min: 0
-# default: 1048576
-DLQ_MAX_SIZE_BYTES: 1048576
-
-# DLQ_MAX_FILES: max rotated DLQ files to retain
-# type: number
-# min: 0
-# default: 5
-DLQ_MAX_FILES: 5
 
 # COMMAND_PREFIX: command trigger prefix (null | string | array<string>)
 # default: null
