@@ -1,4 +1,4 @@
-# TCT MD 
+anti# TCT MD 
 
 
 [![GitHub](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://t.me/TheCarlTech)
@@ -401,7 +401,7 @@ antilink on
 antilink off
 ```
 
-> > > Check antilink status for default group(s)
+> > > Check antilink wstatus for default group(s)
 
 ```bash
 antilink status
@@ -449,23 +449,23 @@ antilink status gp:mycoolgroup
 ### ➡️ **commands** (PM or group-admin)
 
 ```bash
-     antidelete-status on
+     antidelete status on
 ```
 ```bash
-     antidelete-status off
+     antidelete status off
 ```
 ```bash
-     antidelete-status show
+     antidelete status show
 ```
 > > > set where status to be send when deleted 
 
 ```bash
-     antidelete-status <jid>
+     antidelete status <jid>
 ```
 > > > clear the target where statuses were being send before when deleted
  
 ```bash
-      antidelete-status clear
+      antidelete status clear
 ```
  
 
